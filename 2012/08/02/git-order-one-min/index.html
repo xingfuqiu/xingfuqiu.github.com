@@ -1,0 +1,118 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 一分钟学会Git · 邱兴福</title><meta name="description" content="一分钟学会Git - xingfuqiu"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://www.qxyer.com/atom.xml" title="邱兴福"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/xingfuqiu" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">一分钟学会Git</h1><div class="post-info">Aug 2, 2012</div><div class="post-content"><p></p><p>流程：取代码 → 每次工作前更新代码到最新版本 → 修改代码  → 提交代码到服务器</p><p></p>
+<p></p><h3>取代码及修改全局设置</h3><p></p>
+<p></p><p>设置用户名与邮箱</p><p></p>
+<pre lang="ruby" line="1">
+git config --global user.name "My Name"
+git config --global user.email "my@email.com"
+</pre>
+<p>从已有的git库中提取代码</p>
+<pre lang="ruby" line="1">
+git clone git@server:app.git myrepo
+</pre>
+<h3>每次更改代码的操作</h3>
+<p>更新本地代码到最新版本（需要merge才能合到本地代码中）</p>
+<pre lang="ruby" line="1">
+git fetch
+</pre>
+<p>合并更新后的代码到本地</p>
+<pre lang="ruby" line="1">
+git merge
+</pre>
+<p>更新代码方式的另一种方法(git pull是git fetch和git merge命令的一个组合)</p>
+<pre lang="ruby" line="1">
+git pull
+</pre>
+<p>修改代码后，查看已修改的内容</p>
+<pre lang="ruby" line="1">
+git diff --cached
+</pre>
+<p>将新增加文件加入到git中</p>
+<pre lang="ruby" line="1">
+git add file1 file2 file3
+</pre>
+<p>从git中删除文件</p>
+<pre lang="ruby" line="1">
+git rm file1
+git rm -r dir1
+</pre>
+<p>提交修改</p>
+<pre lang="ruby" line="1">
+git commit -m 'this is memo'
+</pre>
+
+<a id="more"></a>
+<p></p><p>如果想省掉提交之前的 git add 命令，可以直接用</p><p></p>
+<pre lang="ruby" line="1">
+git commit -a -m 'this is memo'
+</pre>
+<blockquote>
+<p>commit和commit -a的区别, commit -a相当于：</p>
+</blockquote>
+<ul>
+    <li>第一步：自动地add所有改动的代码，使得所有的开发代码都列于index file中</li>
+</ul>
+<ul>
+    <li>第二步：自动地删除那些在index file中但不在工作树中的文件</li>
+</ul>
+<ul>
+    <li>第三步：执行commit命令来提交</li>
+</ul>
+<p>提交所有修改到远程服务器，这样，其它团队成员才能更新到这些修改</p>
+<pre lang="ruby" line="1">
+git push
+</pre>
+<hr>
+<h3>其它常用命令</h3>
+<p>显示commit日志</p>
+<pre lang="ruby" line="1">
+git log
+</pre>
+<p>不仅显示commit日志，而且同时显示每次commit的代码改变。</p>
+<pre lang="ruby" line="1">
+git log -p
+</pre>
+<p>回滚代码：</p>
+<pre lang="ruby" line="1">
+git revert HEAD
+</pre>
+<p>你也可以revert更早的commit，例如：</p>
+<pre lang="ruby" line="1">
+git revert HEAD^
+</pre>
+<p>销毁自己的修改</p>
+<pre lang="ruby" line="1">
+git reset --hard
+</pre>
+<p>查看最新版本和上一个版本的差异(一个^表示向前推进一个版本)</p>
+<pre lang="ruby" line="1">
+git diff HEAD HEAD^
+</pre>
+<p>将branchname分支合并到当前分支中。(如果合并发生冲突，需要自己解决冲突)</p>
+<pre lang="ruby" line="1">
+git merge branchname
+</pre>
+<p>解决冲突</p>
+<blockquote>
+<p>当merge命令自身无法解决冲突的时候，它会将工作树置于一种特殊的状态，并且给用户提供冲突信息，以期用户可以自己解决这些问题。当然在这个时候，未发生冲突的代码已经被git merge登记在了index file里了。如果你这个时候使用git diff，显示出来的只是发生冲突的代码信息。</p>
+</blockquote>
+<blockquote>
+<p>在你解决了冲突之前，发生冲突的文件会一直在index file中被标记出来。这个时候，如果你使用git commit提交的话，git会提示：filename.txt needs merge</p>
+</blockquote>
+<blockquote>
+<p>在发生冲突的时候，如果你使用git status命令，那么会显示出发生冲突的具体信息。</p>
+</blockquote>
+<p>在你解决了冲突之后，你可以使用如下步骤来提交：</p>
+<p>第一步(如果需要增加文件)：</p>
+<pre lang="ruby" line="1">
+git add file1
+</pre>
+<p>第二步：</p>
+<pre lang="ruby" line="1">
+git commit
+</pre>
+<h3>git恢复删除了的文件</h3>
+<p>git pull 从git服务器取出，并且和本地修改merge， 类似于SVN up，但是对删除的文件不管用，恢复删除文件用</p>
+<pre lang="ruby" line="1">
+git checkout -f
+</pre>
+</div></article></div></main><footer><div class="paginator"><a href="/2012/08/02/delphi-api-globalmemorystatus/" class="prev">PREV</a><a href="/2012/07/31/git-order/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2018 <a href="http://www.qxyer.com">xingfuqiu</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Git常用操作命令收集 · 邱兴福</title><meta name="description" content="Git常用操作命令收集 - xingfuqiu"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://www.qxyer.com/atom.xml" title="邱兴福"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/xingfuqiu" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Git常用操作命令收集</h1><div class="post-info">Jul 31, 2012</div><div class="post-content"><p>前段时间把博客转到<a href="http://www.github.com" target="_blank" rel="noopener">Github</a>上面去了,但是Source一直没有备份上去(技术问题),只能手动备份.这么久时不时的要找在Ubuntu的虚拟机上面去玩玩git,写写blog.无奈对那些命令还是不太熟悉,于是发扬好记性不如烂笔头的优良传统,把这些命令记下来.</p>
+<p></p><p><strong><span class="caps">CONFIGURE</span></strong></p><p></p>
+<ul><br>    <li>标识你自己：电子邮件和名字：</li><br></ul><br><pre lang="ruby" line="1"><br>git config –global user.name “David Beckwith”<br><br>git config –global user.email “<a href="mailto:dbitsolutions@gmail.com" target="_blank" rel="noopener">dbitsolutions@gmail.com</a>“<br></pre><br><ul><br>    <li>看所有用户：</li><br></ul><br><pre lang="ruby" line="1"><br>git config –list<br></pre><br><p>或者</p><br><pre lang="ruby" line="1"><br>cat .gitconfig<br></pre><br><ul><br>    <li>设置别名 <em></em></li><br></ul><br><pre lang="ruby" line="1"><br>git config –global alias.co checkout<br></pre><br><ul><br>    <li>查看你的配置 </li><br></ul><br><pre lang="ruby" line="1"><br>cat .gitconfig<br></pre><br><ul><br>    <li>去忽略空白 (Ruby is whitespace insensitive)</li><br></ul><br><pre lang="ruby" line="1"><br>git config –global apply.whitespace nowarn<br></pre><br><ul><br>    <li>Some nice aliases:</li><br></ul><br><pre lang="bash" line="1"><br>gb = git branch<br>gba = git branch -a<br>gc = git commit -v<br>gd = git diff | mate<br>gl = git pull<br>gp = git push<br>gst = git status<br></pre><br><ul><br>    <li><span class="caps">START</span> <span class="caps">USING</span> <span class="caps">GIT</span> <em></em></li><br></ul><br><pre lang="ruby" line="1"><br>git init<br></pre><br><ul><br>    <li>TO <span class="caps">IGNORE</span> <span class="caps">SOME</span> <span class="caps">FILES</span> </li><br></ul>
+
+<a id="more"></a>
+<p></p><p>在根目录下增加一个叫 .gitignore 的文件，并且增加你想ignore的文件：</p><p></p>
+<pre lang="ruby" line="1">
+*.log
+db/schema.rb
+db/schema.sql
+</pre>
+<p>Git自动ignore空目录。如果你想包含log目录，但是想ignore里面的所有文件，首先在.gitignore文件里加log/* , 然后在这个空目录下再添加一个空的 .gitignore 文件。</p>
+<pre lang="ruby" line="1">
+touch log/.gitignore
+</pre>
+<ul>
+    <li>add新文件以及所有change到git index *</li>
+</ul>
+<pre lang="ruby" line="1">
+git add .
+</pre>
+<ul>
+    <li>看状态 *</li>
+</ul>
+<pre lang="ruby" line="1">
+git status
+</pre>
+<ul>
+    <li>提交 *</li>
+</ul>
+<pre lang="ruby" line="1">
+git commit -m "First import"
+</pre>
+<ul>
+    <li>看已经被提交的 *</li>
+</ul>
+<pre lang="ruby" line="1">
+git ls-files
+</pre>
+<ul>
+    <li>删除一个文件 *</li>
+</ul>
+<pre lang="ruby" line="1">
+git rm [file name]
+</pre>
+<ul>
+    <li>提交当前repos的所有的改变 *</li>
+</ul>
+<pre lang="ruby" line="1">
+git commit -a
+</pre>
+<ul>
+    <li>添加一个文件到git index *</li>
+</ul>
+<pre lang="ruby" line="1">
+git add [file name]
+</pre>
+<ul>
+    <li>当你用－v参数的时候可以看commit的差异 *</li>
+</ul>
+<pre lang="ruby" line="1">
+git commit -v
+</pre>
+<ul>
+    <li>添加commit信息 *</li>
+</ul>
+<pre lang="ruby" line="1">
+git commit -m "This is the message describing the commit"
+</pre>
+<ul>
+    <li>－a是代表add，把所有的change加到git index里然后再commit *</li>
+</ul>
+<pre lang="ruby" line="1">
+git commit -a
+</pre>
+<ul>
+    <li>一般提交命令: *</li>
+</ul>
+<pre lang="ruby" line="1">
+git commit -a -v
+</pre>
+<ul>
+    <li>看你commit的日志 *</li>
+</ul>
+<pre lang="ruby" line="1">
+git log
+</pre>
+<ul>
+    <li>TO <span class="caps">VIEW</span> A <span class="caps">LOG</span> OF <span class="caps">YOUR</span> <span class="caps">COMMITS</span> <span class="caps">WITH</span> A <span class="caps">GRAPH</span> TO <span class="caps">SHOW</span> <span class="caps">THE</span> <span class="caps">EXTENT</span> OF <span class="caps">THE</span> <span class="caps">CHANGES</span> *</li>
+</ul>
+<pre lang="ruby" line="1">
+git log --stat
+</pre>
+<ul>
+    <li>TO <span class="caps">HAVE</span> <span class="caps">PAGINATION</span> <span class="caps">WHEN</span> <span class="caps">VIEWING</span> <span class="caps">THE</span> <span class="caps">LOG</span> <span class="caps">FILE</span> <span class="caps">USE</span> <span class="caps">THE</span> -v <span class="caps">OPTION</span> *</li>
+</ul>
+<pre lang="ruby" line="1">
+git log -v
+</pre>
+<ul>
+    <li>TO <span class="caps">VISUALIZE</span> <span class="caps">YOUR</span> <span class="caps">CHANGES</span> *</li>
+</ul>
+<pre lang="ruby" line="1">
+gitk --all
+</pre>
+<ul>
+    <li>TO <span class="caps">CREATE</span> A <span class="caps">NEW</span> <span class="caps">BRANCH</span> *</li>
+</ul>
+<pre lang="ruby" line="1">
+git branch [name of your new branch]
+</pre>
+<ul>
+    <li>TO <span class="caps">VIEW</span> <span class="caps">ALL</span> OF <span class="caps">THE</span> <span class="caps">EXISTING</span> <span class="caps">BRANCHES</span> *</li>
+</ul>
+<pre lang="ruby" line="1">
+git branch
+</pre>
+<ul>
+    <li>TO <span class="caps">VIEW</span> A <span class="caps">LIST</span> OF <span class="caps">ALL</span> <span class="caps">BRANCHES</span> *</li>
+</ul>
+<pre lang="ruby" line="1">
+git branch -a
+</pre>
+<ul>
+    <li>TO <span class="caps">SWITCH</span> TO <span class="caps">ANOTHER</span> <span class="caps">BRANCH</span> *</li>
+</ul>
+<p>The state of your file system will change after executing this command.</p>
+<pre lang="ruby" line="1">
+git checkout [name of the branch you want to switch to]
+</pre>
+<p>OR</p>
+<pre lang="ruby" line="1">
+git co [name of the branch you want to switch to]
+</pre>
+<ul>
+    <li>TO <span class="caps">MAKE</span> <span class="caps">SURE</span> <span class="caps">THAT</span> <span class="caps">YOUR</span> <span class="caps">NEW</span> <span class="caps">BRANCH</span> <span class="caps">GETS</span> <span class="caps">CHANGES</span> <span class="caps">FROM</span> <span class="caps">THE</span> <span class="caps">MASTER</span> <span class="caps">BRANCH</span> (<span class="caps">WHERE</span> <span class="caps">EVERYBODY</span> <span class="caps">ELSE</span> IS <span class="caps">WORKING</span>) <span class="caps">USE</span> <span class="caps">THE</span> <span class="caps">REBASE</span> <span class="caps">COMMAND</span> *</li>
+</ul>
+<pre lang="ruby" line="1">
+git rebase master
+</pre>
+<ul>
+    <li>TO <span class="caps">MERGE</span> <span class="caps">YOUR</span> <span class="caps">NEW</span> <span class="caps">BRANCH</span> <span class="caps">INTO</span> <span class="caps">THE</span> <span class="caps">MASTER</span> <span class="caps">BRANCH</span> *</li>
+</ul>
+<p>First, switch back to the master branch:</p>
+<pre lang="ruby" line="1">
+git co master
+</pre>
+<p>Check to see what changes you’re about to merge together, compare the two branches:</p>
+<pre lang="ruby" line="1">
+git diff master xyz
+</pre>
+<p>If you’re in a branch that’s not the xyz branch and want to merge the xyz branch into it:</p>
+<pre lang="ruby" line="1">
+git merge xyz
+</pre>
+<ul>
+    <li>TO <span class="caps">REVERT</span> <span class="caps">YOUR</span> <span class="caps">CHANGES</span> to before the merge. *</li>
+</ul>
+<pre lang="ruby" line="1">
+git reset --hard ORIG_HEAD
+</pre>
+<ul>
+    <li>TO <span class="caps">RESOLVE</span> <span class="caps">CONFLICTS</span> just edit your file. *</li>
+</ul>
+<p>Remove the markings, add the file, then commit.</p>
+<ul>
+    <li>TO <span class="caps">CREATE</span> A <span class="caps">BRANCH</span> <span class="caps">AND</span> <span class="caps">SWITCH</span> TO <span class="caps">THE</span> <span class="caps">BRANCH</span> IN <span class="caps">ONE</span> <span class="caps">MOVE</span>: *</li>
+</ul>
+<pre lang="ruby" line="1">
+git checkout -b [name of new branch]
+</pre>
+<ul>
+    <li>TO <span class="caps">CREATE</span> A “CLIPBOARD” or “STASH” OF <span class="caps">CHANGES</span> <span class="caps">THAT</span> <span class="caps">ARE</span> <span class="caps">NOT</span> <span class="caps">YET</span> <span class="caps">COMMITED</span> (SO <span class="caps">THAT</span> <span class="caps">YOU</span> <span class="caps">CAN</span> <span class="caps">SWITCH</span> TO <span class="caps">ANOTHER</span> <span class="caps">BRANCH</span> IN <span class="caps">THE</span> <span class="caps">MIDDLE</span> OF <span class="caps">YOUR</span> <span class="caps">CHANGES</span>.), <span class="caps">CREATE</span> A <span class="caps">STASH</span>.*</li>
+</ul>
+<pre lang="ruby" line="1">
+git stash "Put a message here to remind you of what you're saving to the clipboard"
+</pre>
+<ul>
+    <li>TO <span class="caps">SWITCH</span> <span class="caps">AWAY</span> <span class="caps">FROM</span> <span class="caps">THE</span> <span class="caps">CURRENT</span> <span class="caps">BRANCH</span> *</li>
+</ul>
+<pre lang="ruby" line="1">
+git co [branch you want to switch to]
+</pre>
+<ul>
+    <li>Do whatever Then switch back to the stashed branch *</li>
+</ul>
+<pre lang="ruby" line="1">
+git co [the stashed branch]
+</pre>
+<ul>
+    <li>TO <span class="caps">VIEW</span> <span class="caps">THE</span> <span class="caps">LIST</span> OF <span class="caps">STASHES</span> *</li>
+</ul>
+<pre lang="ruby" line="1">
+git stash list
+</pre>
+<ul>
+    <li>TO <span class="caps">LOAD</span> <span class="caps">BACK</span> <span class="caps">THE</span> “CLIPBOARD” OR “STASH” *</li>
+</ul>
+<pre lang="ruby" line="1">
+git stash apply
+</pre>
+<p>Now you can continue to work where you were previously.</p>
+<ul>
+    <li>TO <span class="caps">DELETE</span> A <span class="caps">BRANCH</span> <span class="caps">THAT</span> IS <span class="caps">NOT</span> <span class="caps">USED</span> <span class="caps">ANYMORE</span>, but already merged into the current branch. (TO <span class="caps">CLEAN</span> UP)*</li>
+</ul>
+<pre lang="ruby" line="1">
+git branch -d [name of branch you want to delete]
+</pre>
+<ul>
+    <li>TO <span class="caps">DELETE</span> AN <span class="caps">UNMERGED</span> <span class="caps">BRANCH</span> *</li>
+</ul>
+<pre lang="ruby" line="1">
+git branch -D [name of branch you want to delete]
+</pre>
+<ul>
+    <li>TO <span class="caps">DELETE</span> <span class="caps">THE</span> <span class="caps">STASH</span>. (<span class="caps">ERASE</span> <span class="caps">THE</span> “CLIPBOARD” <span class="caps">FROM</span> <span class="caps">MEMORY</span>)*</li>
+</ul>
+<pre lang="ruby" line="1">
+git stash clear
+</pre>
+<ul>
+    <li>TO <span class="caps">SET</span> UP <span class="caps">YOUR</span> <span class="caps">REPOSITORY</span> <span class="caps">FOR</span> <span class="caps">SHARING</span> ON A <span class="caps">CENTRAL</span> <span class="caps">SERVER</span> *</li>
+</ul>
+<p>Copy up your repository. e.g.:</p>
+<pre lang="ruby" line="1">
+scp -r my_project deploy@yourbox.com:my_project
+</pre>
+<p>Move your files on the remote server to /var/git/my_project For security make the owner of this project git On the repository server:</p>
+<pre lang="ruby" line="1">
+sudo chown -R git:git my_project
+</pre>
+<p>Then (for security) restrict the “deploy” user to doing git-related things in /etc/passwd with a git-shell.</p>
+<ul>
+    <li>TO <span class="caps">CHECK</span> <span class="caps">OUT</span> <span class="caps">THE</span> <span class="caps">GIT</span> <span class="caps">REPOSITORY</span> TO <span class="caps">YOUR</span> <span class="caps">LOCALHOST</span>. ON <span class="caps">YOUR</span> <span class="caps">LOCAL</span> <span class="caps">HOST</span> DO <span class="caps">THIS</span>:*</li>
+</ul>
+<pre lang="ruby" line="1">
+git clone git@yourbox.com:/var/git/my_project
+</pre>
+<ul>
+    <li>TO <span class="caps">SEE</span> <span class="caps">SOME</span> <span class="caps">INFO</span> <span class="caps">ABOUT</span> <span class="caps">THE</span> <span class="caps">REPOSITORY</span> <span class="caps">THAT</span> <span class="caps">WILL</span> <span class="caps">TELL</span> <span class="caps">YOU</span> <span class="caps">WHICH</span> <span class="caps">REPOSITORY</span> IS <span class="caps">THE</span> <span class="caps">MASTER</span> <span class="caps">AND</span> <span class="caps">WHICH</span> IS <span class="caps">THE</span> <span class="caps">SLAVE</span>:*</li>
+</ul>
+<pre lang="ruby" line="1">
+cat .git/config
+</pre>
+<p>By virtue of having cloned the remote repository, your local repository becomes the slave and will track and synchronize with the remote master branch.</p>
+<ul>
+    <li>TO <span class="caps">UPDATE</span> <span class="caps">YOUR</span> <span class="caps">LOCAL</span> <span class="caps">BRANCH</span> <span class="caps">FROM</span> <span class="caps">THE</span> <span class="caps">REMOTE</span> <span class="caps">SERVER</span>: *</li>
+</ul>
+<pre lang="ruby" line="1">
+git pull
+</pre>
+<ul>
+    <li>TO <span class="caps">GET</span> A <span class="caps">COPY</span> OF <span class="caps">THE</span> <span class="caps">ENTIRE</span> <span class="caps">REMOTE</span> <span class="caps">REPOSITORY</span> (e.g. a repository named “laptop”) <span class="caps">WITHOUT</span> <span class="caps">MERGING</span> <span class="caps">THEM</span> <span class="caps">INTO</span> <span class="caps">YOUR</span> <span class="caps">LOCAL</span> <span class="caps">BRANCHES</span> <span class="caps">USE</span> FETCH*</li>
+</ul>
+<pre lang="ruby" line="1">
+git fetch laptop
+</pre>
+<ul>
+    <li>TO <span class="caps">MERGE</span> <span class="caps">TWO</span> <span class="caps">LOCAL</span> <span class="caps">BRANCHES</span> (ie. your local xyz branch with your local master branch) <span class="caps">USE</span> <span class="caps">MERGE</span> *</li>
+</ul>
+<pre lang="ruby" line="1">
+git merge laptop/xyz
+</pre>
+<p>This merged the (already copied laptop repository’s xyz branch) with the current branch you’re sitting in.</p>
+<ul>
+    <li>TO <span class="caps">MERGE</span> <span class="caps">THE</span> <span class="caps">REMOTE</span> <span class="caps">BRANCH</span> <span class="caps">WITH</span> <span class="caps">YOUR</span> <span class="caps">LOCAL</span> <span class="caps">BRANCH</span> <span class="caps">THAT</span> <span class="caps">YOU</span> <span class="caps">ARE</span> <span class="caps">SITTING</span> IN <span class="caps">USE</span> <span class="caps">PULL</span><br>
+TO <span class="caps">ADD</span> <span class="caps">LOCAL</span> <span class="caps">KNOWLEDGE</span> (TO <span class="caps">YOUR</span> <span class="caps">LOCAL</span> <span class="caps">REPOSITORY</span>) OF A 2ND <span class="caps">REMOTE</span> <span class="caps">REPOSITORY</span>, <span class="caps">LIKE</span> <span class="caps">YOUR</span> LAPTOP*</li>
+</ul>
+<pre lang="ruby" line="1">
+git remote add laptop duo2book.local:repos/m_project
+</pre>
+<p>where ’’‘laptop’’” is the name of the remote repository and ”’‘duo2book.local’’” is the name of the remote machine.</p>
+<ul>
+    <li>TO <span class="caps">VIEW</span> <span class="caps">META</span> <span class="caps">INFORMATION</span> <span class="caps">ABOUT</span> <span class="caps">THAT</span> <span class="caps">REMOTE</span> <span class="caps">REPOSITORY</span> *</li>
+</ul>
+<pre lang="ruby" line="1">
+git remote show laptop
+</pre>
+<ul>
+    <li>TO <span class="caps">PUSH</span> A <span class="caps">COMMITTED</span> <span class="caps">LOCAL</span> <span class="caps">CHANGE</span> OF <span class="caps">THE</span> xyz <span class="caps">BRANCH</span> TO <span class="caps">THE</span> <span class="caps">REMOTE</span> laptop <span class="caps">BRANCH</span> *</li>
+</ul>
+<pre lang="ruby" line="1">
+git push laptop xyz
+</pre>
+<p>*TO <span class="caps">CREATE</span> A <span class="caps">TRACKING</span> <span class="caps">BRANCH</span> (A <span class="caps">SLAVE</span> <span class="caps">BRANCH</span>). * Ie. to link a local branch to a remote branch:</p>
+<pre lang="ruby" line="1">
+git branch --track local_branch remote_branch
+</pre>
+<ul>
+    <li><span class="caps">NOW</span> IF YOU’RE <span class="caps">SITTING</span> IN <span class="caps">THE</span> <span class="caps">LOCAL</span> <span class="caps">TRACKING</span> <span class="caps">BRANCH</span>, TO <span class="caps">PULL</span> <span class="caps">YOU</span> DON’T <span class="caps">NEED</span> TO <span class="caps">SPECIFY</span> <span class="caps">THE</span> <span class="caps">REMOTE</span> <span class="caps">TRACKING</span> <span class="caps">BRANCH</span>:*</li>
+</ul>
+<pre lang="ruby" line="1">
+git  pull
+</pre>
+<p>Note: You can track(link) different local branches to different remote machines. For example, you can track your friend’s “upgrade” branch with your “bobs_upgrade” branch, and simultaneously you can track the origin’s “master” branch (of your main webserver) with your local “master” branch.</p>
+<p>By convention, ‘origin’ is the local name given to the remote centralized server which is the way <span class="caps">SVN</span> is usually set up on a remote server.</p>
+<ul>
+    <li>TO <span class="caps">SEE</span> <span class="caps">WHICH</span> <span class="caps">LOCAL</span> <span class="caps">BRANCHES</span> <span class="caps">ARE</span> <span class="caps">TRACKING</span> A <span class="caps">REMOTE</span> <span class="caps">BRANCH</span>:*</li>
+</ul>
+<pre lang="ruby" line="1">
+git remote show origin
+</pre>
+<p><strong>TO <span class="caps">WORK</span> <span class="caps">WITH</span> AN <span class="caps">SVN</span> <span class="caps">REPOSITORY</span> <span class="caps">BUT</span> <span class="caps">WORK</span> <span class="caps">WITH</span> <span class="caps">GIT</span> <span class="caps">LOCALLY</span>:</strong></p>
+<pre lang="ruby" line="1">
+git-svn clone [http location of an svn repository]
+</pre>
+<p><strong>Now you can work with the checked out directory as though it was a git repository. (cuz it is)<br>
+TO <span class="caps">PUSH</span> (<span class="caps">COMMIT</span>) <span class="caps">CHANGES</span> TO <span class="caps">THE</span> <span class="caps">REMOTE</span> <span class="caps">SERVER</span></strong></p>
+<pre lang="ruby" line="1">
+git-svn dcommit
+</pre>
+<ul>
+    <li>TO <span class="caps">UPDATE</span> <span class="caps">YOUR</span> <span class="caps">LOCAL</span> <span class="caps">REPOSITORY</span> <span class="caps">FROM</span> <span class="caps">THE</span> <span class="caps">SVN</span> REPOSITORY*</li>
+</ul>
+<pre lang="ruby" line="1">
+git-svn rebase
+</pre>
+<p><span class="caps">NOTE</span>: make sure you have your perl bindings to your local svn installation.<br>
+I screwed up, how do I reset my checkout?</p>
+<pre lang="ruby" line="1">
+git checkout -f
+</pre>
+
+</div></article></div></main><footer><div class="paginator"><a href="/2012/08/02/git-order-one-min/" class="prev">PREV</a><a href="/2012/07/31/delphi-thread-waitforsingleobject/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2018 <a href="http://www.qxyer.com">xingfuqiu</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
