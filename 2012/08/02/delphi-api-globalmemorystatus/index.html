@@ -1,4 +1,146 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Delphi调用GlobalMemoryStatus获取内存信息 · 邱兴福</title><meta name="description" content="Delphi调用GlobalMemoryStatus获取内存信息 - xingfuqiu"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://www.qxyer.com/atom.xml" title="邱兴福"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/xingfuqiu" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Delphi调用GlobalMemoryStatus获取内存信息</h1><div class="post-info">Aug 2, 2012</div><div class="post-content"><p> 下面介绍一种方法可以获取系统内存的多少、使用状态等信息。更重要的是，应用程序可以利用这项技术来决定客户机的可用内存的大小，利用这些信息，应用程序可以动态地优化程序的性能。例如，如果有足够的内存可以利用双缓存优化位图的操作。利用Windows API函数<code>GlobalMemoryStatus</code>可以完成上述功能。</p>
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="下面介绍一种方法可以获取系统内存的多少、使用状态等信息。更重要的是，应用程序可以利用这项技术来决定客户机的可用内存的大小，利用这些信息，应用程序可以动态地优化程序的性能。例如，如果有足够的内存可以利用双缓存优化位图的操作。利用Windows API函数GlobalMemoryStatus可以完成上述功能。 GlobalMemoryStatus接收一个类型为TMemoryStatus的变参，通过这">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Delphi调用GlobalMemoryStatus获取内存信息">
+<meta property="og:url" content="http://www.qxyer.com/2012/08/02/delphi-api-globalmemorystatus/index.html">
+<meta property="og:site_name" content="邱兴福">
+<meta property="og:description" content="下面介绍一种方法可以获取系统内存的多少、使用状态等信息。更重要的是，应用程序可以利用这项技术来决定客户机的可用内存的大小，利用这些信息，应用程序可以动态地优化程序的性能。例如，如果有足够的内存可以利用双缓存优化位图的操作。利用Windows API函数GlobalMemoryStatus可以完成上述功能。 GlobalMemoryStatus接收一个类型为TMemoryStatus的变参，通过这">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-04-26T10:47:30.774Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Delphi调用GlobalMemoryStatus获取内存信息">
+<meta name="twitter:description" content="下面介绍一种方法可以获取系统内存的多少、使用状态等信息。更重要的是，应用程序可以利用这项技术来决定客户机的可用内存的大小，利用这些信息，应用程序可以动态地优化程序的性能。例如，如果有足够的内存可以利用双缓存优化位图的操作。利用Windows API函数GlobalMemoryStatus可以完成上述功能。 GlobalMemoryStatus接收一个类型为TMemoryStatus的变参，通过这">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Delphi调用GlobalMemoryStatus获取内存信息</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://www.flickr.com/xingfuqiu">相册</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2012/08/14/push-source-to-github/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2012/08/02/git-order-one-min/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://www.qxyer.com/2012/08/02/delphi-api-globalmemorystatus/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://www.qxyer.com/2012/08/02/delphi-api-globalmemorystatus/&text=Delphi调用GlobalMemoryStatus获取内存信息"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://www.qxyer.com/2012/08/02/delphi-api-globalmemorystatus/&title=Delphi调用GlobalMemoryStatus获取内存信息"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://www.qxyer.com/2012/08/02/delphi-api-globalmemorystatus/&is_video=false&description=Delphi调用GlobalMemoryStatus获取内存信息"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Delphi调用GlobalMemoryStatus获取内存信息&body=Check out this article: http://www.qxyer.com/2012/08/02/delphi-api-globalmemorystatus/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://www.qxyer.com/2012/08/02/delphi-api-globalmemorystatus/&title=Delphi调用GlobalMemoryStatus获取内存信息"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://www.qxyer.com/2012/08/02/delphi-api-globalmemorystatus/&title=Delphi调用GlobalMemoryStatus获取内存信息"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://www.qxyer.com/2012/08/02/delphi-api-globalmemorystatus/&title=Delphi调用GlobalMemoryStatus获取内存信息"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://www.qxyer.com/2012/08/02/delphi-api-globalmemorystatus/&title=Delphi调用GlobalMemoryStatus获取内存信息"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://www.qxyer.com/2012/08/02/delphi-api-globalmemorystatus/&name=Delphi调用GlobalMemoryStatus获取内存信息&description=&lt;p&gt; 下面介绍一种方法可以获取系统内存的多少、使用状态等信息。更重要的是，应用程序可以利用这项技术来决定客户机的可用内存的大小，利用这些信息，应用程序可以动态地优化程序的性能。例如，如果有足够的内存可以利用双缓存优化位图的操作。利用Windows API函数&lt;code&gt;GlobalMemoryStatus&lt;/code&gt;可以完成上述功能。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;GlobalMemoryStatus&lt;/code&gt;接收一个类型为&lt;code&gt;TMemoryStatus&lt;/code&gt;的变参，通过这个参数就可以获得Windows当前的内存状态。&lt;code&gt;TMemoryStatus&lt;/code&gt;的结构如下：&lt;/p&gt;
+&lt;figure class=&#34;highlight delphi&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;PMemoryStatus = ^TMemoryStatus;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;_MEMORYSTATUS = &lt;span class=&#34;keyword&#34;&gt;record&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  dwLength DWORD;                            &lt;span class=&#34;comment&#34;&gt;&amp;#123; sizeof(MEMORYSTATUS)，该记录结构的大小&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  dwMemoryLoad DWORD;                   &lt;span class=&#34;comment&#34;&gt;&amp;#123;使用内存所占百分比&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  dwTotalPhys DWORD;                        &lt;span class=&#34;comment&#34;&gt;&amp;#123;全部物理内存字节数&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  dwAvailPhys DWORD;                         &lt;span class=&#34;comment&#34;&gt;&amp;#123; 可用物理内存字节数&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  dwTotalPageFile DWORD;                   &lt;span class=&#34;comment&#34;&gt;&amp;#123; 全部页文件字节数  &amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  dwAvailPageFile DWORD;                   &lt;span class=&#34;comment&#34;&gt;&amp;#123; 可用页文件字节数   &amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  dwTotalVirtual DWORD;                      &lt;span class=&#34;comment&#34;&gt;&amp;#123; 全部虚拟内存字节数&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  dwAvailVirtual DWORD;                       &lt;span class=&#34;comment&#34;&gt;&amp;#123; 可用虚拟内存字节数&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;end&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;调用方法:&lt;br&gt;&lt;figure class=&#34;highlight delphi&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;procedure&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;TForm1&lt;/span&gt;.&lt;span class=&#34;title&#34;&gt;btn1Click&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(Sender: TObject)&lt;/span&gt;;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;var&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  memoinfo : TMemoryStatus;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;begin&lt;/span&gt; &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;   GlobalMemoryStatus(memoinfo);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;   &lt;span class=&#34;keyword&#34;&gt;with&lt;/span&gt; mmo1.Lines &lt;span class=&#34;keyword&#34;&gt;do&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;     &lt;span class=&#34;keyword&#34;&gt;begin&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;       Add(Format(&lt;span class=&#34;string&#34;&gt;&#39;Length:&#39;&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;#9#9&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;&#39;%d&#39;&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;&#39;  Bytes&#39;&lt;/span&gt;,[memoinfo.dwLength]));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;       Add(Format(&lt;span class=&#34;string&#34;&gt;&#39;MemoryLoad:&#39;&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;#9&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;&#39;%d&#39;&lt;/span&gt; ,[memoinfo.dwMemoryLoad]));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;       Add(Format(&lt;span class=&#34;string&#34;&gt;&#39;TotalPhys:&#39;&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;#9&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;&#39;%d&#39;&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;&#39;  Bytes&#39;&lt;/span&gt;,[memoinfo.dwTotalPhys]));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;       Add(Format(&lt;span class=&#34;string&#34;&gt;&#39;AvailPhys:&#39;&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;#9&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;&#39;%d&#39;&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;&#39;  Bytes&#39;&lt;/span&gt;,[memoinfo.dwAvailPhys]));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;       Add(Format(&lt;span class=&#34;string&#34;&gt;&#39;TotalPageFile:&#39;&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;#9&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;&#39;%d&#39;&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;&#39;  Bytes&#39;&lt;/span&gt;,[memoinfo.dwTotalPageFile]));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;       Add(Format(&lt;span class=&#34;string&#34;&gt;&#39;AvailPageFile:&#39;&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;#9&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;&#39;%d&#39;&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;&#39;  Bytes&#39;&lt;/span&gt;,[memoinfo.dwAvailPageFile]));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;       Add(Format(&lt;span class=&#34;string&#34;&gt;&#39;TotalVirtual:&#39;&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;#9&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;&#39;%d&#39;&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;&#39;  Bytes&#39;&lt;/span&gt;,[memoinfo.dwTotalVirtual]));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;       Add(Format(&lt;span class=&#34;string&#34;&gt;&#39;AvailVirtual:&#39;&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;#9&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;&#39;%d&#39;&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;&#39;  Bytes&#39;&lt;/span&gt;,[memoinfo.dwAvailVirtual]));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;     &lt;span class=&#34;keyword&#34;&gt;end&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;end&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;上面这个方法一般情况下针对一根内存条获取的信息是正常的(win7 64bit/XP+delphi7)下测试正常,但是如果一台电脑里面有两根或以上内存的话,那就只能取出一根内存的信息出来,所以我们只好调用&lt;code&gt;GlobalMemoryStatusEx&lt;/code&gt;这个API来实现了.&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Delphi调用GlobalMemoryStatus获取内存信息
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">邱兴福</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2012-08-02T07:12:00.000Z" itemprop="datePublished">2012-08-02</time>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p> 下面介绍一种方法可以获取系统内存的多少、使用状态等信息。更重要的是，应用程序可以利用这项技术来决定客户机的可用内存的大小，利用这些信息，应用程序可以动态地优化程序的性能。例如，如果有足够的内存可以利用双缓存优化位图的操作。利用Windows API函数<code>GlobalMemoryStatus</code>可以完成上述功能。</p>
 <p><code>GlobalMemoryStatus</code>接收一个类型为<code>TMemoryStatus</code>的变参，通过这个参数就可以获得Windows当前的内存状态。<code>TMemoryStatus</code>的结构如下：</p>
 <figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">PMemoryStatus = ^TMemoryStatus;</span><br><span class="line">_MEMORYSTATUS = <span class="keyword">record</span></span><br><span class="line">  dwLength DWORD;                            <span class="comment">&#123; sizeof(MEMORYSTATUS)，该记录结构的大小&#125;</span></span><br><span class="line">  dwMemoryLoad DWORD;                   <span class="comment">&#123;使用内存所占百分比&#125;</span></span><br><span class="line">  dwTotalPhys DWORD;                        <span class="comment">&#123;全部物理内存字节数&#125;</span></span><br><span class="line">  dwAvailPhys DWORD;                         <span class="comment">&#123; 可用物理内存字节数&#125;</span></span><br><span class="line">  dwTotalPageFile DWORD;                   <span class="comment">&#123; 全部页文件字节数  &#125;</span></span><br><span class="line">  dwAvailPageFile DWORD;                   <span class="comment">&#123; 可用页文件字节数   &#125;</span></span><br><span class="line">  dwTotalVirtual DWORD;                      <span class="comment">&#123; 全部虚拟内存字节数&#125;</span></span><br><span class="line">  dwAvailVirtual DWORD;                       <span class="comment">&#123; 可用虚拟内存字节数&#125;</span></span><br><span class="line"><span class="keyword">end</span>;</span><br></pre></td></tr></table></figure>
 <p>调用方法:<br><figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">procedure</span> <span class="title">TForm1</span>.<span class="title">btn1Click</span><span class="params">(Sender: TObject)</span>;</span></span><br><span class="line"><span class="keyword">var</span></span><br><span class="line">  memoinfo : TMemoryStatus;</span><br><span class="line"><span class="keyword">begin</span> </span><br><span class="line">   GlobalMemoryStatus(memoinfo);</span><br><span class="line">   <span class="keyword">with</span> mmo1.Lines <span class="keyword">do</span></span><br><span class="line">     <span class="keyword">begin</span></span><br><span class="line">       Add(Format(<span class="string">'Length:'</span> + <span class="string">#9#9</span> + <span class="string">'%d'</span> + <span class="string">'  Bytes'</span>,[memoinfo.dwLength]));</span><br><span class="line">       Add(Format(<span class="string">'MemoryLoad:'</span> + <span class="string">#9</span> + <span class="string">'%d'</span> ,[memoinfo.dwMemoryLoad]));</span><br><span class="line">       Add(Format(<span class="string">'TotalPhys:'</span> + <span class="string">#9</span> + <span class="string">'%d'</span> + <span class="string">'  Bytes'</span>,[memoinfo.dwTotalPhys]));</span><br><span class="line">       Add(Format(<span class="string">'AvailPhys:'</span> + <span class="string">#9</span> + <span class="string">'%d'</span> + <span class="string">'  Bytes'</span>,[memoinfo.dwAvailPhys]));</span><br><span class="line">       Add(Format(<span class="string">'TotalPageFile:'</span> + <span class="string">#9</span> + <span class="string">'%d'</span> + <span class="string">'  Bytes'</span>,[memoinfo.dwTotalPageFile]));</span><br><span class="line">       Add(Format(<span class="string">'AvailPageFile:'</span> + <span class="string">#9</span> + <span class="string">'%d'</span> + <span class="string">'  Bytes'</span>,[memoinfo.dwAvailPageFile]));</span><br><span class="line">       Add(Format(<span class="string">'TotalVirtual:'</span> + <span class="string">#9</span> + <span class="string">'%d'</span> + <span class="string">'  Bytes'</span>,[memoinfo.dwTotalVirtual]));</span><br><span class="line">       Add(Format(<span class="string">'AvailVirtual:'</span> + <span class="string">#9</span> + <span class="string">'%d'</span> + <span class="string">'  Bytes'</span>,[memoinfo.dwAvailVirtual]));</span><br><span class="line">     <span class="keyword">end</span>;</span><br><span class="line"><span class="keyword">end</span>;</span><br></pre></td></tr></table></figure></p>
@@ -6,4 +148,103 @@
 <a id="more"></a>
 <p>函数定义:<br><figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span></span><br><span class="line">DWORDLONG = UInt64;</span><br><span class="line"></span><br><span class="line">TMemoryStatusEx = <span class="keyword">packed</span> <span class="keyword">record</span></span><br><span class="line">  dwLength: DWORD;</span><br><span class="line">  dwMemoryLoad: DWORD;</span><br><span class="line">  ullTotalPhys: DWORDLONG;</span><br><span class="line">  ullAvailPhys: DWORDLONG;</span><br><span class="line">  ullTotalPageFile: DWORDLONG;</span><br><span class="line">  ullAvailPageFile: DWORDLONG;</span><br><span class="line">  ullTotalVirtual: DWORDLONG;</span><br><span class="line">  ullAvailVirtual: DWORDLONG;</span><br><span class="line">  ullAvailExtendedVirtual: DWORDLONG;</span><br><span class="line"><span class="keyword">end</span>;</span><br><span class="line">PMemoryStatusEx = ^TMemoryStatusEx;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">GlobalMemoryStatusEx</span><span class="params">(<span class="keyword">var</span> lpBuffer: TMemoryStatusEx)</span>:</span> BOOL; <span class="keyword">stdcall</span>; <span class="keyword">external</span> kernel32;</span><br></pre></td></tr></table></figure></p>
 <p>调用方法:<br><figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">procedure</span> <span class="title">TForm1</span>.<span class="title">btn1Click</span><span class="params">(Sender: TObject)</span>;</span></span><br><span class="line"><span class="keyword">var</span></span><br><span class="line">  memoinfo : TMemoryStatus;</span><br><span class="line"><span class="keyword">begin</span> </span><br><span class="line">   GlobalMemoryStatus(memoinfo);</span><br><span class="line">   <span class="keyword">with</span> mmo1.Lines <span class="keyword">do</span></span><br><span class="line">     <span class="keyword">begin</span></span><br><span class="line">       Add(Format(<span class="string">'Length:'</span> + <span class="string">#9#9</span> + <span class="string">'%d'</span> + <span class="string">'  Bytes'</span>,[memoinfo.dwLength]));</span><br><span class="line">       Add(Format(<span class="string">'MemoryLoad:'</span> + <span class="string">#9</span> + <span class="string">'%d'</span> ,[memoinfo.dwMemoryLoad]));</span><br><span class="line">       Add(Format(<span class="string">'TotalPhys:'</span> + <span class="string">#9</span> + <span class="string">'%d'</span> + <span class="string">'  Bytes'</span>,[memoinfo.ulTotalPhys]));</span><br><span class="line">       Add(Format(<span class="string">'AvailPhys:'</span> + <span class="string">#9</span> + <span class="string">'%d'</span> + <span class="string">'  Bytes'</span>,[memoinfo.ulAvailPhys]));</span><br><span class="line">       Add(Format(<span class="string">'TotalPageFile:'</span> + <span class="string">#9</span> + <span class="string">'%d'</span> + <span class="string">'  Bytes'</span>,[memoinfo.ulTotalPageFile]));</span><br><span class="line">       Add(Format(<span class="string">'AvailPageFile:'</span> + <span class="string">#9</span> + <span class="string">'%d'</span> + <span class="string">'  Bytes'</span>,[memoinfo.ulAvailPageFile]));</span><br><span class="line">       Add(Format(<span class="string">'TotalVirtual:'</span> + <span class="string">#9</span> + <span class="string">'%d'</span> + <span class="string">'  Bytes'</span>,[memoinfo.ulTotalVirtual]));</span><br><span class="line">       Add(Format(<span class="string">'AvailVirtual:'</span> + <span class="string">#9</span> + <span class="string">'%d'</span> + <span class="string">'  Bytes'</span>,[memoinfo.ulAvailVirtual]));</span><br><span class="line">     <span class="keyword">end</span>;</span><br><span class="line"><span class="keyword">end</span>;</span><br></pre></td></tr></table></figure></p>
-</div></article></div></main><footer><div class="paginator"><a href="/2012/08/14/push-source-to-github/" class="prev">PREV</a><a href="/2012/08/02/git-order-one-min/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2018 <a href="http://www.qxyer.com">xingfuqiu</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://www.flickr.com/xingfuqiu">相册</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://www.qxyer.com/2012/08/02/delphi-api-globalmemorystatus/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://www.qxyer.com/2012/08/02/delphi-api-globalmemorystatus/&text=Delphi调用GlobalMemoryStatus获取内存信息"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://www.qxyer.com/2012/08/02/delphi-api-globalmemorystatus/&title=Delphi调用GlobalMemoryStatus获取内存信息"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://www.qxyer.com/2012/08/02/delphi-api-globalmemorystatus/&is_video=false&description=Delphi调用GlobalMemoryStatus获取内存信息"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Delphi调用GlobalMemoryStatus获取内存信息&body=Check out this article: http://www.qxyer.com/2012/08/02/delphi-api-globalmemorystatus/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://www.qxyer.com/2012/08/02/delphi-api-globalmemorystatus/&title=Delphi调用GlobalMemoryStatus获取内存信息"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://www.qxyer.com/2012/08/02/delphi-api-globalmemorystatus/&title=Delphi调用GlobalMemoryStatus获取内存信息"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://www.qxyer.com/2012/08/02/delphi-api-globalmemorystatus/&title=Delphi调用GlobalMemoryStatus获取内存信息"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://www.qxyer.com/2012/08/02/delphi-api-globalmemorystatus/&title=Delphi调用GlobalMemoryStatus获取内存信息"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://www.qxyer.com/2012/08/02/delphi-api-globalmemorystatus/&name=Delphi调用GlobalMemoryStatus获取内存信息&description=&lt;p&gt; 下面介绍一种方法可以获取系统内存的多少、使用状态等信息。更重要的是，应用程序可以利用这项技术来决定客户机的可用内存的大小，利用这些信息，应用程序可以动态地优化程序的性能。例如，如果有足够的内存可以利用双缓存优化位图的操作。利用Windows API函数&lt;code&gt;GlobalMemoryStatus&lt;/code&gt;可以完成上述功能。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;GlobalMemoryStatus&lt;/code&gt;接收一个类型为&lt;code&gt;TMemoryStatus&lt;/code&gt;的变参，通过这个参数就可以获得Windows当前的内存状态。&lt;code&gt;TMemoryStatus&lt;/code&gt;的结构如下：&lt;/p&gt;
+&lt;figure class=&#34;highlight delphi&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;PMemoryStatus = ^TMemoryStatus;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;_MEMORYSTATUS = &lt;span class=&#34;keyword&#34;&gt;record&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  dwLength DWORD;                            &lt;span class=&#34;comment&#34;&gt;&amp;#123; sizeof(MEMORYSTATUS)，该记录结构的大小&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  dwMemoryLoad DWORD;                   &lt;span class=&#34;comment&#34;&gt;&amp;#123;使用内存所占百分比&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  dwTotalPhys DWORD;                        &lt;span class=&#34;comment&#34;&gt;&amp;#123;全部物理内存字节数&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  dwAvailPhys DWORD;                         &lt;span class=&#34;comment&#34;&gt;&amp;#123; 可用物理内存字节数&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  dwTotalPageFile DWORD;                   &lt;span class=&#34;comment&#34;&gt;&amp;#123; 全部页文件字节数  &amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  dwAvailPageFile DWORD;                   &lt;span class=&#34;comment&#34;&gt;&amp;#123; 可用页文件字节数   &amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  dwTotalVirtual DWORD;                      &lt;span class=&#34;comment&#34;&gt;&amp;#123; 全部虚拟内存字节数&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  dwAvailVirtual DWORD;                       &lt;span class=&#34;comment&#34;&gt;&amp;#123; 可用虚拟内存字节数&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;end&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;调用方法:&lt;br&gt;&lt;figure class=&#34;highlight delphi&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;procedure&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;TForm1&lt;/span&gt;.&lt;span class=&#34;title&#34;&gt;btn1Click&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(Sender: TObject)&lt;/span&gt;;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;var&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  memoinfo : TMemoryStatus;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;begin&lt;/span&gt; &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;   GlobalMemoryStatus(memoinfo);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;   &lt;span class=&#34;keyword&#34;&gt;with&lt;/span&gt; mmo1.Lines &lt;span class=&#34;keyword&#34;&gt;do&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;     &lt;span class=&#34;keyword&#34;&gt;begin&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;       Add(Format(&lt;span class=&#34;string&#34;&gt;&#39;Length:&#39;&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;#9#9&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;&#39;%d&#39;&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;&#39;  Bytes&#39;&lt;/span&gt;,[memoinfo.dwLength]));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;       Add(Format(&lt;span class=&#34;string&#34;&gt;&#39;MemoryLoad:&#39;&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;#9&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;&#39;%d&#39;&lt;/span&gt; ,[memoinfo.dwMemoryLoad]));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;       Add(Format(&lt;span class=&#34;string&#34;&gt;&#39;TotalPhys:&#39;&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;#9&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;&#39;%d&#39;&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;&#39;  Bytes&#39;&lt;/span&gt;,[memoinfo.dwTotalPhys]));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;       Add(Format(&lt;span class=&#34;string&#34;&gt;&#39;AvailPhys:&#39;&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;#9&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;&#39;%d&#39;&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;&#39;  Bytes&#39;&lt;/span&gt;,[memoinfo.dwAvailPhys]));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;       Add(Format(&lt;span class=&#34;string&#34;&gt;&#39;TotalPageFile:&#39;&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;#9&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;&#39;%d&#39;&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;&#39;  Bytes&#39;&lt;/span&gt;,[memoinfo.dwTotalPageFile]));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;       Add(Format(&lt;span class=&#34;string&#34;&gt;&#39;AvailPageFile:&#39;&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;#9&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;&#39;%d&#39;&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;&#39;  Bytes&#39;&lt;/span&gt;,[memoinfo.dwAvailPageFile]));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;       Add(Format(&lt;span class=&#34;string&#34;&gt;&#39;TotalVirtual:&#39;&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;#9&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;&#39;%d&#39;&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;&#39;  Bytes&#39;&lt;/span&gt;,[memoinfo.dwTotalVirtual]));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;       Add(Format(&lt;span class=&#34;string&#34;&gt;&#39;AvailVirtual:&#39;&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;#9&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;&#39;%d&#39;&lt;/span&gt; + &lt;span class=&#34;string&#34;&gt;&#39;  Bytes&#39;&lt;/span&gt;,[memoinfo.dwAvailVirtual]));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;     &lt;span class=&#34;keyword&#34;&gt;end&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;end&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;上面这个方法一般情况下针对一根内存条获取的信息是正常的(win7 64bit/XP+delphi7)下测试正常,但是如果一台电脑里面有两根或以上内存的话,那就只能取出一根内存的信息出来,所以我们只好调用&lt;code&gt;GlobalMemoryStatusEx&lt;/code&gt;这个API来实现了.&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 XingfuQiu
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://www.flickr.com/xingfuqiu">相册</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+

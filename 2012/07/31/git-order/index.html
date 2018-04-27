@@ -1,4 +1,144 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Git常用操作命令收集 · 邱兴福</title><meta name="description" content="Git常用操作命令收集 - xingfuqiu"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://www.qxyer.com/atom.xml" title="邱兴福"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/xingfuqiu" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Git常用操作命令收集</h1><div class="post-info">Jul 31, 2012</div><div class="post-content"><p>前段时间把博客转到<a href="http://www.github.com" target="_blank" rel="noopener">Github</a>上面去了,但是Source一直没有备份上去(技术问题),只能手动备份.这么久时不时的要找在Ubuntu的虚拟机上面去玩玩git,写写blog.无奈对那些命令还是不太熟悉,于是发扬好记性不如烂笔头的优良传统,把这些命令记下来.</p>
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="前段时间把博客转到Github上面去了,但是Source一直没有备份上去(技术问题),只能手动备份.这么久时不时的要找在Ubuntu的虚拟机上面去玩玩git,写写blog.无奈对那些命令还是不太熟悉,于是发扬好记性不如烂笔头的优良传统,把这些命令记下来. CONFIGURE     标识你自己：电子邮件和名字：git config –global user.name “David Beckwith">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git常用操作命令收集">
+<meta property="og:url" content="http://www.qxyer.com/2012/07/31/git-order/index.html">
+<meta property="og:site_name" content="邱兴福">
+<meta property="og:description" content="前段时间把博客转到Github上面去了,但是Source一直没有备份上去(技术问题),只能手动备份.这么久时不时的要找在Ubuntu的虚拟机上面去玩玩git,写写blog.无奈对那些命令还是不太熟悉,于是发扬好记性不如烂笔头的优良传统,把这些命令记下来. CONFIGURE     标识你自己：电子邮件和名字：git config –global user.name “David Beckwith">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-04-26T10:47:30.774Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git常用操作命令收集">
+<meta name="twitter:description" content="前段时间把博客转到Github上面去了,但是Source一直没有备份上去(技术问题),只能手动备份.这么久时不时的要找在Ubuntu的虚拟机上面去玩玩git,写写blog.无奈对那些命令还是不太熟悉,于是发扬好记性不如烂笔头的优良传统,把这些命令记下来. CONFIGURE     标识你自己：电子邮件和名字：git config –global user.name “David Beckwith">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Git常用操作命令收集</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://www.flickr.com/xingfuqiu">相册</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2012/08/02/git-order-one-min/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2012/07/31/delphi-thread-waitforsingleobject/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://www.qxyer.com/2012/07/31/git-order/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://www.qxyer.com/2012/07/31/git-order/&text=Git常用操作命令收集"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://www.qxyer.com/2012/07/31/git-order/&title=Git常用操作命令收集"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://www.qxyer.com/2012/07/31/git-order/&is_video=false&description=Git常用操作命令收集"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Git常用操作命令收集&body=Check out this article: http://www.qxyer.com/2012/07/31/git-order/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://www.qxyer.com/2012/07/31/git-order/&title=Git常用操作命令收集"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://www.qxyer.com/2012/07/31/git-order/&title=Git常用操作命令收集"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://www.qxyer.com/2012/07/31/git-order/&title=Git常用操作命令收集"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://www.qxyer.com/2012/07/31/git-order/&title=Git常用操作命令收集"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://www.qxyer.com/2012/07/31/git-order/&name=Git常用操作命令收集&description=&lt;p&gt;前段时间把博客转到&lt;a href=&#34;http://www.github.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Github&lt;/a&gt;上面去了,但是Source一直没有备份上去(技术问题),只能手动备份.这么久时不时的要找在Ubuntu的虚拟机上面去玩玩git,写写blog.无奈对那些命令还是不太熟悉,于是发扬好记性不如烂笔头的优良传统,把这些命令记下来.&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;&lt;span class=&#34;caps&#34;&gt;CONFIGURE&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;
+&lt;ul&gt;&lt;br&gt;    &lt;li&gt;标识你自己：电子邮件和名字：&lt;/li&gt;&lt;br&gt;&lt;/ul&gt;&lt;br&gt;&lt;pre lang=&#34;ruby&#34; line=&#34;1&#34;&gt;&lt;br&gt;git config –global user.name “David Beckwith”&lt;br&gt;&lt;br&gt;git config –global user.email “&lt;a href=&#34;mailto:dbitsolutions@gmail.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;dbitsolutions@gmail.com&lt;/a&gt;“&lt;br&gt;&lt;/pre&gt;&lt;br&gt;&lt;ul&gt;&lt;br&gt;    &lt;li&gt;看所有用户：&lt;/li&gt;&lt;br&gt;&lt;/ul&gt;&lt;br&gt;&lt;pre lang=&#34;ruby&#34; line=&#34;1&#34;&gt;&lt;br&gt;git config –list&lt;br&gt;&lt;/pre&gt;&lt;br&gt;&lt;p&gt;或者&lt;/p&gt;&lt;br&gt;&lt;pre lang=&#34;ruby&#34; line=&#34;1&#34;&gt;&lt;br&gt;cat .gitconfig&lt;br&gt;&lt;/pre&gt;&lt;br&gt;&lt;ul&gt;&lt;br&gt;    &lt;li&gt;设置别名 &lt;em&gt;&lt;/em&gt;&lt;/li&gt;&lt;br&gt;&lt;/ul&gt;&lt;br&gt;&lt;pre lang=&#34;ruby&#34; line=&#34;1&#34;&gt;&lt;br&gt;git config –global alias.co checkout&lt;br&gt;&lt;/pre&gt;&lt;br&gt;&lt;ul&gt;&lt;br&gt;    &lt;li&gt;查看你的配置 &lt;/li&gt;&lt;br&gt;&lt;/ul&gt;&lt;br&gt;&lt;pre lang=&#34;ruby&#34; line=&#34;1&#34;&gt;&lt;br&gt;cat .gitconfig&lt;br&gt;&lt;/pre&gt;&lt;br&gt;&lt;ul&gt;&lt;br&gt;    &lt;li&gt;去忽略空白 (Ruby is whitespace insensitive)&lt;/li&gt;&lt;br&gt;&lt;/ul&gt;&lt;br&gt;&lt;pre lang=&#34;ruby&#34; line=&#34;1&#34;&gt;&lt;br&gt;git config –global apply.whitespace nowarn&lt;br&gt;&lt;/pre&gt;&lt;br&gt;&lt;ul&gt;&lt;br&gt;    &lt;li&gt;Some nice aliases:&lt;/li&gt;&lt;br&gt;&lt;/ul&gt;&lt;br&gt;&lt;pre lang=&#34;bash&#34; line=&#34;1&#34;&gt;&lt;br&gt;gb = git branch&lt;br&gt;gba = git branch -a&lt;br&gt;gc = git commit -v&lt;br&gt;gd = git diff | mate&lt;br&gt;gl = git pull&lt;br&gt;gp = git push&lt;br&gt;gst = git status&lt;br&gt;&lt;/pre&gt;&lt;br&gt;&lt;ul&gt;&lt;br&gt;    &lt;li&gt;&lt;span class=&#34;caps&#34;&gt;START&lt;/span&gt; &lt;span class=&#34;caps&#34;&gt;USING&lt;/span&gt; &lt;span class=&#34;caps&#34;&gt;GIT&lt;/span&gt; &lt;em&gt;&lt;/em&gt;&lt;/li&gt;&lt;br&gt;&lt;/ul&gt;&lt;br&gt;&lt;pre lang=&#34;ruby&#34; line=&#34;1&#34;&gt;&lt;br&gt;git init&lt;br&gt;&lt;/pre&gt;&lt;br&gt;&lt;ul&gt;&lt;br&gt;    &lt;li&gt;TO &lt;span class=&#34;caps&#34;&gt;IGNORE&lt;/span&gt; &lt;span class=&#34;caps&#34;&gt;SOME&lt;/span&gt; &lt;span class=&#34;caps&#34;&gt;FILES&lt;/span&gt; &lt;/li&gt;&lt;br&gt;&lt;/ul&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Git常用操作命令收集
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">邱兴福</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2012-07-31T09:14:00.000Z" itemprop="datePublished">2012-07-31</time>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>前段时间把博客转到<a href="http://www.github.com" target="_blank" rel="noopener">Github</a>上面去了,但是Source一直没有备份上去(技术问题),只能手动备份.这么久时不时的要找在Ubuntu的虚拟机上面去玩玩git,写写blog.无奈对那些命令还是不太熟悉,于是发扬好记性不如烂笔头的优良传统,把这些命令记下来.</p>
 <p></p><p><strong><span class="caps">CONFIGURE</span></strong></p><p></p>
 <ul><br>    <li>标识你自己：电子邮件和名字：</li><br></ul><br><pre lang="ruby" line="1"><br>git config –global user.name “David Beckwith”<br><br>git config –global user.email “<a href="mailto:dbitsolutions@gmail.com" target="_blank" rel="noopener">dbitsolutions@gmail.com</a>“<br></pre><br><ul><br>    <li>看所有用户：</li><br></ul><br><pre lang="ruby" line="1"><br>git config –list<br></pre><br><p>或者</p><br><pre lang="ruby" line="1"><br>cat .gitconfig<br></pre><br><ul><br>    <li>设置别名 <em></em></li><br></ul><br><pre lang="ruby" line="1"><br>git config –global alias.co checkout<br></pre><br><ul><br>    <li>查看你的配置 </li><br></ul><br><pre lang="ruby" line="1"><br>cat .gitconfig<br></pre><br><ul><br>    <li>去忽略空白 (Ruby is whitespace insensitive)</li><br></ul><br><pre lang="ruby" line="1"><br>git config –global apply.whitespace nowarn<br></pre><br><ul><br>    <li>Some nice aliases:</li><br></ul><br><pre lang="bash" line="1"><br>gb = git branch<br>gba = git branch -a<br>gc = git commit -v<br>gd = git diff | mate<br>gl = git pull<br>gp = git push<br>gst = git status<br></pre><br><ul><br>    <li><span class="caps">START</span> <span class="caps">USING</span> <span class="caps">GIT</span> <em></em></li><br></ul><br><pre lang="ruby" line="1"><br>git init<br></pre><br><ul><br>    <li>TO <span class="caps">IGNORE</span> <span class="caps">SOME</span> <span class="caps">FILES</span> </li><br></ul>
 
@@ -321,4 +461,101 @@ I screwed up, how do I reset my checkout?</p>
 git checkout -f
 </pre>
 
-</div></article></div></main><footer><div class="paginator"><a href="/2012/08/02/git-order-one-min/" class="prev">PREV</a><a href="/2012/07/31/delphi-thread-waitforsingleobject/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2018 <a href="http://www.qxyer.com">xingfuqiu</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://www.flickr.com/xingfuqiu">相册</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://www.qxyer.com/2012/07/31/git-order/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://www.qxyer.com/2012/07/31/git-order/&text=Git常用操作命令收集"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://www.qxyer.com/2012/07/31/git-order/&title=Git常用操作命令收集"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://www.qxyer.com/2012/07/31/git-order/&is_video=false&description=Git常用操作命令收集"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Git常用操作命令收集&body=Check out this article: http://www.qxyer.com/2012/07/31/git-order/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://www.qxyer.com/2012/07/31/git-order/&title=Git常用操作命令收集"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://www.qxyer.com/2012/07/31/git-order/&title=Git常用操作命令收集"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://www.qxyer.com/2012/07/31/git-order/&title=Git常用操作命令收集"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://www.qxyer.com/2012/07/31/git-order/&title=Git常用操作命令收集"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://www.qxyer.com/2012/07/31/git-order/&name=Git常用操作命令收集&description=&lt;p&gt;前段时间把博客转到&lt;a href=&#34;http://www.github.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Github&lt;/a&gt;上面去了,但是Source一直没有备份上去(技术问题),只能手动备份.这么久时不时的要找在Ubuntu的虚拟机上面去玩玩git,写写blog.无奈对那些命令还是不太熟悉,于是发扬好记性不如烂笔头的优良传统,把这些命令记下来.&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;&lt;span class=&#34;caps&#34;&gt;CONFIGURE&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;
+&lt;ul&gt;&lt;br&gt;    &lt;li&gt;标识你自己：电子邮件和名字：&lt;/li&gt;&lt;br&gt;&lt;/ul&gt;&lt;br&gt;&lt;pre lang=&#34;ruby&#34; line=&#34;1&#34;&gt;&lt;br&gt;git config –global user.name “David Beckwith”&lt;br&gt;&lt;br&gt;git config –global user.email “&lt;a href=&#34;mailto:dbitsolutions@gmail.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;dbitsolutions@gmail.com&lt;/a&gt;“&lt;br&gt;&lt;/pre&gt;&lt;br&gt;&lt;ul&gt;&lt;br&gt;    &lt;li&gt;看所有用户：&lt;/li&gt;&lt;br&gt;&lt;/ul&gt;&lt;br&gt;&lt;pre lang=&#34;ruby&#34; line=&#34;1&#34;&gt;&lt;br&gt;git config –list&lt;br&gt;&lt;/pre&gt;&lt;br&gt;&lt;p&gt;或者&lt;/p&gt;&lt;br&gt;&lt;pre lang=&#34;ruby&#34; line=&#34;1&#34;&gt;&lt;br&gt;cat .gitconfig&lt;br&gt;&lt;/pre&gt;&lt;br&gt;&lt;ul&gt;&lt;br&gt;    &lt;li&gt;设置别名 &lt;em&gt;&lt;/em&gt;&lt;/li&gt;&lt;br&gt;&lt;/ul&gt;&lt;br&gt;&lt;pre lang=&#34;ruby&#34; line=&#34;1&#34;&gt;&lt;br&gt;git config –global alias.co checkout&lt;br&gt;&lt;/pre&gt;&lt;br&gt;&lt;ul&gt;&lt;br&gt;    &lt;li&gt;查看你的配置 &lt;/li&gt;&lt;br&gt;&lt;/ul&gt;&lt;br&gt;&lt;pre lang=&#34;ruby&#34; line=&#34;1&#34;&gt;&lt;br&gt;cat .gitconfig&lt;br&gt;&lt;/pre&gt;&lt;br&gt;&lt;ul&gt;&lt;br&gt;    &lt;li&gt;去忽略空白 (Ruby is whitespace insensitive)&lt;/li&gt;&lt;br&gt;&lt;/ul&gt;&lt;br&gt;&lt;pre lang=&#34;ruby&#34; line=&#34;1&#34;&gt;&lt;br&gt;git config –global apply.whitespace nowarn&lt;br&gt;&lt;/pre&gt;&lt;br&gt;&lt;ul&gt;&lt;br&gt;    &lt;li&gt;Some nice aliases:&lt;/li&gt;&lt;br&gt;&lt;/ul&gt;&lt;br&gt;&lt;pre lang=&#34;bash&#34; line=&#34;1&#34;&gt;&lt;br&gt;gb = git branch&lt;br&gt;gba = git branch -a&lt;br&gt;gc = git commit -v&lt;br&gt;gd = git diff | mate&lt;br&gt;gl = git pull&lt;br&gt;gp = git push&lt;br&gt;gst = git status&lt;br&gt;&lt;/pre&gt;&lt;br&gt;&lt;ul&gt;&lt;br&gt;    &lt;li&gt;&lt;span class=&#34;caps&#34;&gt;START&lt;/span&gt; &lt;span class=&#34;caps&#34;&gt;USING&lt;/span&gt; &lt;span class=&#34;caps&#34;&gt;GIT&lt;/span&gt; &lt;em&gt;&lt;/em&gt;&lt;/li&gt;&lt;br&gt;&lt;/ul&gt;&lt;br&gt;&lt;pre lang=&#34;ruby&#34; line=&#34;1&#34;&gt;&lt;br&gt;git init&lt;br&gt;&lt;/pre&gt;&lt;br&gt;&lt;ul&gt;&lt;br&gt;    &lt;li&gt;TO &lt;span class=&#34;caps&#34;&gt;IGNORE&lt;/span&gt; &lt;span class=&#34;caps&#34;&gt;SOME&lt;/span&gt; &lt;span class=&#34;caps&#34;&gt;FILES&lt;/span&gt; &lt;/li&gt;&lt;br&gt;&lt;/ul&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 XingfuQiu
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://www.flickr.com/xingfuqiu">相册</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+

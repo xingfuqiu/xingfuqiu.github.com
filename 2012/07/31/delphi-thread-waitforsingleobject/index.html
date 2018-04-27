@@ -1,6 +1,241 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Delphi多线程之WaitForSingleObject · 邱兴福</title><meta name="description" content="Delphi多线程之WaitForSingleObject - xingfuqiu"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://www.qxyer.com/atom.xml" title="邱兴福"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/xingfuqiu" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Delphi多线程之WaitForSingleObject</h1><div class="post-info">Jul 31, 2012</div><div class="post-content"><p>函数定义</p>
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="函数定义 12345678910function WaitForSingleObject(  hHandle: THandle;      &amp;#123;要等待的对象句柄&amp;#125;  dwMilliseconds: DWORD  &amp;#123;等待的时间, 单位是毫秒&amp;#125;): DWORD; stdcall;       &amp;#123;返回值如下:&amp;#125;WAIT_OBJECT_0  &amp;#1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Delphi多线程之WaitForSingleObject">
+<meta property="og:url" content="http://www.qxyer.com/2012/07/31/delphi-thread-waitforsingleobject/index.html">
+<meta property="og:site_name" content="邱兴福">
+<meta property="og:description" content="函数定义 12345678910function WaitForSingleObject(  hHandle: THandle;      &amp;#123;要等待的对象句柄&amp;#125;  dwMilliseconds: DWORD  &amp;#123;等待的时间, 单位是毫秒&amp;#125;): DWORD; stdcall;       &amp;#123;返回值如下:&amp;#125;WAIT_OBJECT_0  &amp;#1">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-04-26T10:47:30.774Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Delphi多线程之WaitForSingleObject">
+<meta name="twitter:description" content="函数定义 12345678910function WaitForSingleObject(  hHandle: THandle;      &amp;#123;要等待的对象句柄&amp;#125;  dwMilliseconds: DWORD  &amp;#123;等待的时间, 单位是毫秒&amp;#125;): DWORD; stdcall;       &amp;#123;返回值如下:&amp;#125;WAIT_OBJECT_0  &amp;#1">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Delphi多线程之WaitForSingleObject</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://www.flickr.com/xingfuqiu">相册</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2012/07/31/git-order/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2012/07/20/windows7-64bit-octopress/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://www.qxyer.com/2012/07/31/delphi-thread-waitforsingleobject/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://www.qxyer.com/2012/07/31/delphi-thread-waitforsingleobject/&text=Delphi多线程之WaitForSingleObject"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://www.qxyer.com/2012/07/31/delphi-thread-waitforsingleobject/&title=Delphi多线程之WaitForSingleObject"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://www.qxyer.com/2012/07/31/delphi-thread-waitforsingleobject/&is_video=false&description=Delphi多线程之WaitForSingleObject"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Delphi多线程之WaitForSingleObject&body=Check out this article: http://www.qxyer.com/2012/07/31/delphi-thread-waitforsingleobject/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://www.qxyer.com/2012/07/31/delphi-thread-waitforsingleobject/&title=Delphi多线程之WaitForSingleObject"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://www.qxyer.com/2012/07/31/delphi-thread-waitforsingleobject/&title=Delphi多线程之WaitForSingleObject"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://www.qxyer.com/2012/07/31/delphi-thread-waitforsingleobject/&title=Delphi多线程之WaitForSingleObject"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://www.qxyer.com/2012/07/31/delphi-thread-waitforsingleobject/&title=Delphi多线程之WaitForSingleObject"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://www.qxyer.com/2012/07/31/delphi-thread-waitforsingleobject/&name=Delphi多线程之WaitForSingleObject&description=&lt;p&gt;函数定义&lt;/p&gt;
+&lt;figure class=&#34;highlight delphi&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;WaitForSingleObject&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;params&#34;&gt;  hHandle: THandle;      &lt;span class=&#34;comment&#34;&gt;&amp;#123;要等待的对象句柄&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;params&#34;&gt;  dwMilliseconds: DWORD  &lt;span class=&#34;comment&#34;&gt;&amp;#123;等待的时间, 单位是毫秒&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;params&#34;&gt;)&lt;/span&gt;:&lt;/span&gt; DWORD; &lt;span class=&#34;keyword&#34;&gt;stdcall&lt;/span&gt;;       &lt;span class=&#34;comment&#34;&gt;&amp;#123;返回值如下:&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;WAIT_OBJECT_0  &lt;span class=&#34;comment&#34;&gt;&amp;#123;等着了, 本例中是: 等的那个进程终于结束了&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;WAIT_TIMEOUT   &lt;span class=&#34;comment&#34;&gt;&amp;#123;等过了点(你指定的时间), 也没等着&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;WAIT_ABANDONED &lt;span class=&#34;comment&#34;&gt;&amp;#123;好不容易等着了, 但人家还是不让咱执行; 这一般是互斥对象&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;//WaitForSingleObject 的第二个参数一般给常数值 INFINITE, 表示一直等下去, 死等.&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Delphi多线程之WaitForSingleObject
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">邱兴福</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2012-07-31T07:50:00.000Z" itemprop="datePublished">2012-07-31</time>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>函数定义</p>
 <figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">WaitForSingleObject</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">  hHandle: THandle;      <span class="comment">&#123;要等待的对象句柄&#125;</span></span></span></span><br><span class="line"><span class="function"><span class="params">  dwMilliseconds: DWORD  <span class="comment">&#123;等待的时间, 单位是毫秒&#125;</span></span></span></span><br><span class="line"><span class="function"><span class="params">)</span>:</span> DWORD; <span class="keyword">stdcall</span>;       <span class="comment">&#123;返回值如下:&#125;</span></span><br><span class="line"></span><br><span class="line">WAIT_OBJECT_0  <span class="comment">&#123;等着了, 本例中是: 等的那个进程终于结束了&#125;</span></span><br><span class="line">WAIT_TIMEOUT   <span class="comment">&#123;等过了点(你指定的时间), 也没等着&#125;</span></span><br><span class="line">WAIT_ABANDONED <span class="comment">&#123;好不容易等着了, 但人家还是不让咱执行; 这一般是互斥对象&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//WaitForSingleObject 的第二个参数一般给常数值 INFINITE, 表示一直等下去, 死等.</span></span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <p>示例代码</p>
 <figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">unit</span> Unit1;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">uses</span></span><br><span class="line">  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,</span><br><span class="line">  Dialogs, StdCtrls;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span></span><br><span class="line">  <span class="title">TForm1</span> = <span class="keyword">class</span>(TForm)</span><br><span class="line">    Button1: TButton;</span><br><span class="line">    <span class="function"><span class="keyword">procedure</span> <span class="title">Button1Click</span><span class="params">(Sender: TObject)</span>;</span></span><br><span class="line">  <span class="keyword">end</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span></span><br><span class="line">  Form1: TForm1;</span><br><span class="line"></span><br><span class="line"><span class="keyword">implementation</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&#123;$R *.dfm&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span></span><br><span class="line">  hProcess: THandle; <span class="comment">&#123;进程句柄&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#123;等待一个指定句柄的进程什么时候结束&#125;</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MyThreadFun</span><span class="params">(p: Pointer)</span>:</span> DWORD; <span class="keyword">stdcall</span>;</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">  <span class="keyword">if</span> WaitForSingleObject(hProcess, INFINITE) = WAIT_OBJECT_0 <span class="keyword">then</span></span><br><span class="line">    Form1.Text := Format(<span class="string">'进程 %d 已关闭'</span>, [hProcess]);</span><br><span class="line">  Result := <span class="number">0</span>;</span><br><span class="line"><span class="keyword">end</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">&#123;启动一个进程, 并建立新线程等待它的结束&#125;</span></span><br><span class="line"><span class="function"><span class="keyword">procedure</span> <span class="title">TForm1</span>.<span class="title">Button1Click</span><span class="params">(Sender: TObject)</span>;</span></span><br><span class="line"><span class="keyword">var</span></span><br><span class="line">  pInfo: TProcessInformation;</span><br><span class="line">  sInfo: TStartupInfo;</span><br><span class="line">  Path: <span class="keyword">array</span>[<span class="number">0</span>..MAX_PATH-<span class="number">1</span>] <span class="keyword">of</span> Char;</span><br><span class="line">  ThreadID: DWORD;</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">  <span class="comment">&#123;先获取记事本的路径&#125;</span></span><br><span class="line">  GetSystemDirectory(Path, MAX_PATH);</span><br><span class="line">  StrCat(Path, <span class="string">'\notepad.exe'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">&#123;用 CreateProcess 打开记事本并获取其进程句柄, 然后建立线程监视&#125;</span></span><br><span class="line">  FillChar(sInfo, SizeOf(sInfo), <span class="number">0</span>);</span><br><span class="line">  <span class="keyword">if</span> CreateProcess(Path, <span class="keyword">nil</span>, <span class="keyword">nil</span>, <span class="keyword">nil</span>, False, <span class="number">0</span>, <span class="keyword">nil</span>, <span class="keyword">nil</span>, sInfo, pInfo) <span class="keyword">then</span></span><br><span class="line">  <span class="keyword">begin</span></span><br><span class="line">    hProcess := pInfo.hProcess;                           <span class="comment">&#123;获取进程句柄&#125;</span></span><br><span class="line">    Text := Format(<span class="string">'进程 %d 已启动'</span>, [hProcess]); </span><br><span class="line">    CreateThread(<span class="keyword">nil</span>, <span class="number">0</span>, @MyThreadFun, <span class="keyword">nil</span>, <span class="number">0</span>, ThreadID); <span class="comment">&#123;建立线程监视&#125;</span></span><br><span class="line">  <span class="keyword">end</span>;</span><br><span class="line"><span class="keyword">end</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span>.</span><br></pre></td></tr></table></figure>
-</div></article></div></main><footer><div class="paginator"><a href="/2012/07/31/git-order/" class="prev">PREV</a><a href="/2012/07/20/windows7-64bit-octopress/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2018 <a href="http://www.qxyer.com">xingfuqiu</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://www.flickr.com/xingfuqiu">相册</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://www.qxyer.com/2012/07/31/delphi-thread-waitforsingleobject/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://www.qxyer.com/2012/07/31/delphi-thread-waitforsingleobject/&text=Delphi多线程之WaitForSingleObject"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://www.qxyer.com/2012/07/31/delphi-thread-waitforsingleobject/&title=Delphi多线程之WaitForSingleObject"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://www.qxyer.com/2012/07/31/delphi-thread-waitforsingleobject/&is_video=false&description=Delphi多线程之WaitForSingleObject"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Delphi多线程之WaitForSingleObject&body=Check out this article: http://www.qxyer.com/2012/07/31/delphi-thread-waitforsingleobject/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://www.qxyer.com/2012/07/31/delphi-thread-waitforsingleobject/&title=Delphi多线程之WaitForSingleObject"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://www.qxyer.com/2012/07/31/delphi-thread-waitforsingleobject/&title=Delphi多线程之WaitForSingleObject"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://www.qxyer.com/2012/07/31/delphi-thread-waitforsingleobject/&title=Delphi多线程之WaitForSingleObject"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://www.qxyer.com/2012/07/31/delphi-thread-waitforsingleobject/&title=Delphi多线程之WaitForSingleObject"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://www.qxyer.com/2012/07/31/delphi-thread-waitforsingleobject/&name=Delphi多线程之WaitForSingleObject&description=&lt;p&gt;函数定义&lt;/p&gt;
+&lt;figure class=&#34;highlight delphi&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;WaitForSingleObject&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;params&#34;&gt;  hHandle: THandle;      &lt;span class=&#34;comment&#34;&gt;&amp;#123;要等待的对象句柄&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;params&#34;&gt;  dwMilliseconds: DWORD  &lt;span class=&#34;comment&#34;&gt;&amp;#123;等待的时间, 单位是毫秒&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;params&#34;&gt;)&lt;/span&gt;:&lt;/span&gt; DWORD; &lt;span class=&#34;keyword&#34;&gt;stdcall&lt;/span&gt;;       &lt;span class=&#34;comment&#34;&gt;&amp;#123;返回值如下:&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;WAIT_OBJECT_0  &lt;span class=&#34;comment&#34;&gt;&amp;#123;等着了, 本例中是: 等的那个进程终于结束了&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;WAIT_TIMEOUT   &lt;span class=&#34;comment&#34;&gt;&amp;#123;等过了点(你指定的时间), 也没等着&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;WAIT_ABANDONED &lt;span class=&#34;comment&#34;&gt;&amp;#123;好不容易等着了, 但人家还是不让咱执行; 这一般是互斥对象&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;//WaitForSingleObject 的第二个参数一般给常数值 INFINITE, 表示一直等下去, 死等.&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 XingfuQiu
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://www.flickr.com/xingfuqiu">相册</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+

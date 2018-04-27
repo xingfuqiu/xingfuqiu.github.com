@@ -1,4 +1,237 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> rake 0.9.2.2 vs 0.9.2版本不同报错解决 · 邱兴福</title><meta name="description" content="rake 0.9.2.2 vs 0.9.2版本不同报错解决 - xingfuqiu"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://www.qxyer.com/atom.xml" title="邱兴福"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/xingfuqiu" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">rake 0.9.2.2 vs 0.9.2版本不同报错解决</h1><div class="post-info">Aug 14, 2012</div><div class="post-content"><p>You have already activated rake 0.9.2.2, but your Gemfile requires rake 0.9.2. Using bundle exec may solve this.</p>
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="You have already activated rake 0.9.2.2, but your Gemfile requires rake 0.9.2. Using bundle exec may solve this. If you got rake error as following:1234rake aborted!You have already activated rake 0.9">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rake 0.9.2.2 vs 0.9.2版本不同报错解决">
+<meta property="og:url" content="http://www.qxyer.com/2012/08/14/rake-0-dot-9-2-dot-2-vs-0-dot-9-2-error/index.html">
+<meta property="og:site_name" content="邱兴福">
+<meta property="og:description" content="You have already activated rake 0.9.2.2, but your Gemfile requires rake 0.9.2. Using bundle exec may solve this. If you got rake error as following:1234rake aborted!You have already activated rake 0.9">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-04-26T10:47:30.775Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="rake 0.9.2.2 vs 0.9.2版本不同报错解决">
+<meta name="twitter:description" content="You have already activated rake 0.9.2.2, but your Gemfile requires rake 0.9.2. Using bundle exec may solve this. If you got rake error as following:1234rake aborted!You have already activated rake 0.9">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>rake 0.9.2.2 vs 0.9.2版本不同报错解决</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://www.flickr.com/xingfuqiu">相册</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2018/04/26/hello-hexo/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2012/08/14/push-source-to-github/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://www.qxyer.com/2012/08/14/rake-0-dot-9-2-dot-2-vs-0-dot-9-2-error/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://www.qxyer.com/2012/08/14/rake-0-dot-9-2-dot-2-vs-0-dot-9-2-error/&text=rake 0.9.2.2 vs 0.9.2版本不同报错解决"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://www.qxyer.com/2012/08/14/rake-0-dot-9-2-dot-2-vs-0-dot-9-2-error/&title=rake 0.9.2.2 vs 0.9.2版本不同报错解决"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://www.qxyer.com/2012/08/14/rake-0-dot-9-2-dot-2-vs-0-dot-9-2-error/&is_video=false&description=rake 0.9.2.2 vs 0.9.2版本不同报错解决"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=rake 0.9.2.2 vs 0.9.2版本不同报错解决&body=Check out this article: http://www.qxyer.com/2012/08/14/rake-0-dot-9-2-dot-2-vs-0-dot-9-2-error/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://www.qxyer.com/2012/08/14/rake-0-dot-9-2-dot-2-vs-0-dot-9-2-error/&title=rake 0.9.2.2 vs 0.9.2版本不同报错解决"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://www.qxyer.com/2012/08/14/rake-0-dot-9-2-dot-2-vs-0-dot-9-2-error/&title=rake 0.9.2.2 vs 0.9.2版本不同报错解决"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://www.qxyer.com/2012/08/14/rake-0-dot-9-2-dot-2-vs-0-dot-9-2-error/&title=rake 0.9.2.2 vs 0.9.2版本不同报错解决"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://www.qxyer.com/2012/08/14/rake-0-dot-9-2-dot-2-vs-0-dot-9-2-error/&title=rake 0.9.2.2 vs 0.9.2版本不同报错解决"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://www.qxyer.com/2012/08/14/rake-0-dot-9-2-dot-2-vs-0-dot-9-2-error/&name=rake 0.9.2.2 vs 0.9.2版本不同报错解决&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        rake 0.9.2.2 vs 0.9.2版本不同报错解决
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">邱兴福</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2012-08-14T05:58:00.000Z" itemprop="datePublished">2012-08-14</time>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>You have already activated rake 0.9.2.2, but your Gemfile requires rake 0.9.2. Using bundle exec may solve this.</p>
 <p>If you got rake error as following:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rake aborted!</span><br><span class="line">You have already activated rake 0.9.2.2, but your Gemfile requires rake 0.9.2. Using bundle <span class="built_in">exec</span> may solve this.</span><br><span class="line"></span><br><span class="line">(See full trace by running task with --trace)</span><br></pre></td></tr></table></figure></p>
 <p>Using the following to resolve:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bundle update rake</span><br></pre></td></tr></table></figure></p>
-</div></article></div></main><footer><div class="paginator"><a href="/2018/04/26/hello-hexo/" class="prev">PREV</a><a href="/2012/08/14/push-source-to-github/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2018 <a href="http://www.qxyer.com">xingfuqiu</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://www.flickr.com/xingfuqiu">相册</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://www.qxyer.com/2012/08/14/rake-0-dot-9-2-dot-2-vs-0-dot-9-2-error/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://www.qxyer.com/2012/08/14/rake-0-dot-9-2-dot-2-vs-0-dot-9-2-error/&text=rake 0.9.2.2 vs 0.9.2版本不同报错解决"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://www.qxyer.com/2012/08/14/rake-0-dot-9-2-dot-2-vs-0-dot-9-2-error/&title=rake 0.9.2.2 vs 0.9.2版本不同报错解决"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://www.qxyer.com/2012/08/14/rake-0-dot-9-2-dot-2-vs-0-dot-9-2-error/&is_video=false&description=rake 0.9.2.2 vs 0.9.2版本不同报错解决"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=rake 0.9.2.2 vs 0.9.2版本不同报错解决&body=Check out this article: http://www.qxyer.com/2012/08/14/rake-0-dot-9-2-dot-2-vs-0-dot-9-2-error/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://www.qxyer.com/2012/08/14/rake-0-dot-9-2-dot-2-vs-0-dot-9-2-error/&title=rake 0.9.2.2 vs 0.9.2版本不同报错解决"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://www.qxyer.com/2012/08/14/rake-0-dot-9-2-dot-2-vs-0-dot-9-2-error/&title=rake 0.9.2.2 vs 0.9.2版本不同报错解决"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://www.qxyer.com/2012/08/14/rake-0-dot-9-2-dot-2-vs-0-dot-9-2-error/&title=rake 0.9.2.2 vs 0.9.2版本不同报错解决"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://www.qxyer.com/2012/08/14/rake-0-dot-9-2-dot-2-vs-0-dot-9-2-error/&title=rake 0.9.2.2 vs 0.9.2版本不同报错解决"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://www.qxyer.com/2012/08/14/rake-0-dot-9-2-dot-2-vs-0-dot-9-2-error/&name=rake 0.9.2.2 vs 0.9.2版本不同报错解决&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 XingfuQiu
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://www.flickr.com/xingfuqiu">相册</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+

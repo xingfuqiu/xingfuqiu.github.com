@@ -1,51 +1,337 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 邱兴福</title><meta name="description" content="A Blog Powered By Hexo"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://www.qxyer.com/atom.xml" title="邱兴福"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link active">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/xingfuqiu" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><ul class="home post-list"><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2018/04/26/hello-hexo/" class="post-title-link">hello-hexo</a></h2><div class="post-info">Apr 26, 2018</div><div class="post-content"></div><a href="/2018/04/26/hello-hexo/" class="read-more">...more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2012/08/14/rake-0-dot-9-2-dot-2-vs-0-dot-9-2-error/" class="post-title-link">rake 0.9.2.2 vs 0.9.2版本不同报错解决</a></h2><div class="post-info">Aug 14, 2012</div><div class="post-content"></div><a href="/2012/08/14/rake-0-dot-9-2-dot-2-vs-0-dot-9-2-error/" class="read-more">...more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2012/08/14/push-source-to-github/" class="post-title-link">Push源码到Github</a></h2><div class="post-info">Aug 14, 2012</div><div class="post-content"></div><a href="/2012/08/14/push-source-to-github/" class="read-more">...more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2012/08/02/delphi-api-globalmemorystatus/" class="post-title-link">Delphi调用GlobalMemoryStatus获取内存信息</a></h2><div class="post-info">Aug 2, 2012</div><div class="post-content"><p> 下面介绍一种方法可以获取系统内存的多少、使用状态等信息。更重要的是，应用程序可以利用这项技术来决定客户机的可用内存的大小，利用这些信息，应用程序可以动态地优化程序的性能。例如，如果有足够的内存可以利用双缓存优化位图的操作。利用Windows API函数<code>GlobalMemoryStatus</code>可以完成上述功能。</p>
-<p><code>GlobalMemoryStatus</code>接收一个类型为<code>TMemoryStatus</code>的变参，通过这个参数就可以获得Windows当前的内存状态。<code>TMemoryStatus</code>的结构如下：</p>
-<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">PMemoryStatus = ^TMemoryStatus;</span><br><span class="line">_MEMORYSTATUS = <span class="keyword">record</span></span><br><span class="line">  dwLength DWORD;                            <span class="comment">&#123; sizeof(MEMORYSTATUS)，该记录结构的大小&#125;</span></span><br><span class="line">  dwMemoryLoad DWORD;                   <span class="comment">&#123;使用内存所占百分比&#125;</span></span><br><span class="line">  dwTotalPhys DWORD;                        <span class="comment">&#123;全部物理内存字节数&#125;</span></span><br><span class="line">  dwAvailPhys DWORD;                         <span class="comment">&#123; 可用物理内存字节数&#125;</span></span><br><span class="line">  dwTotalPageFile DWORD;                   <span class="comment">&#123; 全部页文件字节数  &#125;</span></span><br><span class="line">  dwAvailPageFile DWORD;                   <span class="comment">&#123; 可用页文件字节数   &#125;</span></span><br><span class="line">  dwTotalVirtual DWORD;                      <span class="comment">&#123; 全部虚拟内存字节数&#125;</span></span><br><span class="line">  dwAvailVirtual DWORD;                       <span class="comment">&#123; 可用虚拟内存字节数&#125;</span></span><br><span class="line"><span class="keyword">end</span>;</span><br></pre></td></tr></table></figure>
-<p>调用方法:<br><figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">procedure</span> <span class="title">TForm1</span>.<span class="title">btn1Click</span><span class="params">(Sender: TObject)</span>;</span></span><br><span class="line"><span class="keyword">var</span></span><br><span class="line">  memoinfo : TMemoryStatus;</span><br><span class="line"><span class="keyword">begin</span> </span><br><span class="line">   GlobalMemoryStatus(memoinfo);</span><br><span class="line">   <span class="keyword">with</span> mmo1.Lines <span class="keyword">do</span></span><br><span class="line">     <span class="keyword">begin</span></span><br><span class="line">       Add(Format(<span class="string">'Length:'</span> + <span class="string">#9#9</span> + <span class="string">'%d'</span> + <span class="string">'  Bytes'</span>,[memoinfo.dwLength]));</span><br><span class="line">       Add(Format(<span class="string">'MemoryLoad:'</span> + <span class="string">#9</span> + <span class="string">'%d'</span> ,[memoinfo.dwMemoryLoad]));</span><br><span class="line">       Add(Format(<span class="string">'TotalPhys:'</span> + <span class="string">#9</span> + <span class="string">'%d'</span> + <span class="string">'  Bytes'</span>,[memoinfo.dwTotalPhys]));</span><br><span class="line">       Add(Format(<span class="string">'AvailPhys:'</span> + <span class="string">#9</span> + <span class="string">'%d'</span> + <span class="string">'  Bytes'</span>,[memoinfo.dwAvailPhys]));</span><br><span class="line">       Add(Format(<span class="string">'TotalPageFile:'</span> + <span class="string">#9</span> + <span class="string">'%d'</span> + <span class="string">'  Bytes'</span>,[memoinfo.dwTotalPageFile]));</span><br><span class="line">       Add(Format(<span class="string">'AvailPageFile:'</span> + <span class="string">#9</span> + <span class="string">'%d'</span> + <span class="string">'  Bytes'</span>,[memoinfo.dwAvailPageFile]));</span><br><span class="line">       Add(Format(<span class="string">'TotalVirtual:'</span> + <span class="string">#9</span> + <span class="string">'%d'</span> + <span class="string">'  Bytes'</span>,[memoinfo.dwTotalVirtual]));</span><br><span class="line">       Add(Format(<span class="string">'AvailVirtual:'</span> + <span class="string">#9</span> + <span class="string">'%d'</span> + <span class="string">'  Bytes'</span>,[memoinfo.dwAvailVirtual]));</span><br><span class="line">     <span class="keyword">end</span>;</span><br><span class="line"><span class="keyword">end</span>;</span><br></pre></td></tr></table></figure></p>
-<p>上面这个方法一般情况下针对一根内存条获取的信息是正常的(win7 64bit/XP+delphi7)下测试正常,但是如果一台电脑里面有两根或以上内存的话,那就只能取出一根内存的信息出来,所以我们只好调用<code>GlobalMemoryStatusEx</code>这个API来实现了.</p></div><a href="/2012/08/02/delphi-api-globalmemorystatus/" class="read-more">...more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2012/08/02/git-order-one-min/" class="post-title-link">一分钟学会Git</a></h2><div class="post-info">Aug 2, 2012</div><div class="post-content"><p></p><p>流程：取代码 → 每次工作前更新代码到最新版本 → 修改代码  → 提交代码到服务器</p><p></p>
-<p></p><h3>取代码及修改全局设置</h3><p></p>
-<p></p><p>设置用户名与邮箱</p><p></p>
-<pre lang="ruby" line="1">
-git config --global user.name "My Name"
-git config --global user.email "my@email.com"
-</pre>
-<p>从已有的git库中提取代码</p>
-<pre lang="ruby" line="1">
-git clone git@server:app.git myrepo
-</pre>
-<h3>每次更改代码的操作</h3>
-<p>更新本地代码到最新版本（需要merge才能合到本地代码中）</p>
-<pre lang="ruby" line="1">
-git fetch
-</pre>
-<p>合并更新后的代码到本地</p>
-<pre lang="ruby" line="1">
-git merge
-</pre>
-<p>更新代码方式的另一种方法(git pull是git fetch和git merge命令的一个组合)</p>
-<pre lang="ruby" line="1">
-git pull
-</pre>
-<p>修改代码后，查看已修改的内容</p>
-<pre lang="ruby" line="1">
-git diff --cached
-</pre>
-<p>将新增加文件加入到git中</p>
-<pre lang="ruby" line="1">
-git add file1 file2 file3
-</pre>
-<p>从git中删除文件</p>
-<pre lang="ruby" line="1">
-git rm file1
-git rm -r dir1
-</pre>
-<p>提交修改</p>
-<pre lang="ruby" line="1">
-git commit -m 'this is memo'
-</pre></div><a href="/2012/08/02/git-order-one-min/" class="read-more">...more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2012/07/31/git-order/" class="post-title-link">Git常用操作命令收集</a></h2><div class="post-info">Jul 31, 2012</div><div class="post-content"><p>前段时间把博客转到<a href="http://www.github.com" target="_blank" rel="noopener">Github</a>上面去了,但是Source一直没有备份上去(技术问题),只能手动备份.这么久时不时的要找在Ubuntu的虚拟机上面去玩玩git,写写blog.无奈对那些命令还是不太熟悉,于是发扬好记性不如烂笔头的优良传统,把这些命令记下来.</p>
-<p></p><p><strong><span class="caps">CONFIGURE</span></strong></p><p></p>
-<ul><br>    <li>标识你自己：电子邮件和名字：</li><br></ul><br><pre lang="ruby" line="1"><br>git config –global user.name “David Beckwith”<br><br>git config –global user.email “<a href="mailto:dbitsolutions@gmail.com" target="_blank" rel="noopener">dbitsolutions@gmail.com</a>“<br></pre><br><ul><br>    <li>看所有用户：</li><br></ul><br><pre lang="ruby" line="1"><br>git config –list<br></pre><br><p>或者</p><br><pre lang="ruby" line="1"><br>cat .gitconfig<br></pre><br><ul><br>    <li>设置别名 <em></em></li><br></ul><br><pre lang="ruby" line="1"><br>git config –global alias.co checkout<br></pre><br><ul><br>    <li>查看你的配置 </li><br></ul><br><pre lang="ruby" line="1"><br>cat .gitconfig<br></pre><br><ul><br>    <li>去忽略空白 (Ruby is whitespace insensitive)</li><br></ul><br><pre lang="ruby" line="1"><br>git config –global apply.whitespace nowarn<br></pre><br><ul><br>    <li>Some nice aliases:</li><br></ul><br><pre lang="bash" line="1"><br>gb = git branch<br>gba = git branch -a<br>gc = git commit -v<br>gd = git diff | mate<br>gl = git pull<br>gp = git push<br>gst = git status<br></pre><br><ul><br>    <li><span class="caps">START</span> <span class="caps">USING</span> <span class="caps">GIT</span> <em></em></li><br></ul><br><pre lang="ruby" line="1"><br>git init<br></pre><br><ul><br>    <li>TO <span class="caps">IGNORE</span> <span class="caps">SOME</span> <span class="caps">FILES</span> </li><br></ul></div><a href="/2012/07/31/git-order/" class="read-more">...more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2012/07/31/delphi-thread-waitforsingleobject/" class="post-title-link">Delphi多线程之WaitForSingleObject</a></h2><div class="post-info">Jul 31, 2012</div><div class="post-content"><p>函数定义</p>
-<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">WaitForSingleObject</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">  hHandle: THandle;      <span class="comment">&#123;要等待的对象句柄&#125;</span></span></span></span><br><span class="line"><span class="function"><span class="params">  dwMilliseconds: DWORD  <span class="comment">&#123;等待的时间, 单位是毫秒&#125;</span></span></span></span><br><span class="line"><span class="function"><span class="params">)</span>:</span> DWORD; <span class="keyword">stdcall</span>;       <span class="comment">&#123;返回值如下:&#125;</span></span><br><span class="line"></span><br><span class="line">WAIT_OBJECT_0  <span class="comment">&#123;等着了, 本例中是: 等的那个进程终于结束了&#125;</span></span><br><span class="line">WAIT_TIMEOUT   <span class="comment">&#123;等过了点(你指定的时间), 也没等着&#125;</span></span><br><span class="line">WAIT_ABANDONED <span class="comment">&#123;好不容易等着了, 但人家还是不让咱执行; 这一般是互斥对象&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//WaitForSingleObject 的第二个参数一般给常数值 INFINITE, 表示一直等下去, 死等.</span></span><br></pre></td></tr></table></figure></div><a href="/2012/07/31/delphi-thread-waitforsingleobject/" class="read-more">...more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2012/07/20/windows7-64bit-octopress/" class="post-title-link">在64位 Windows 7 中部署中文化的Octopress</a></h2><div class="post-info">Jul 20, 2012</div><div class="post-content"><blockquote>
-<h3 id="前言——可以在Linux环境下部署的话，还是尽可能在Linux下部署吧…"><a href="#前言——可以在Linux环境下部署的话，还是尽可能在Linux下部署吧…" class="headerlink" title="前言——可以在Linux环境下部署的话，还是尽可能在Linux下部署吧…"></a>前言——可以在Linux环境下部署的话，还是尽可能在Linux下部署吧…</h3></blockquote>
-<p>真的不是开玩笑的，除非你像我一样喜欢折腾。即使没有Linux系统，能够运行虚拟机的话，装个虚拟的Linux系统也比直接在Windows中部署要简单。</p>
-<p>一般的安装步骤，在Octopress的<a href="[http://octopress.org/docs/]">文檔</a>中就有详细的说明。而在Windows 7中部署，则可参考<a href="[http://sinosmond.github.com/blog/2012/03/12/install-and-deploy-octopress-to-github-on-windows7-from-scratch/]">Sinosmond的一篇文章</a>。 具体的部署过程，我就不再重复了，只是在部署过程中有几点是需要注意的。</p></div><a href="/2012/07/20/windows7-64bit-octopress/" class="read-more">...more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2012/07/11/sql-server-collate/" class="post-title-link">SQL Server 2008 中文乱码解决方案</a></h2><div class="post-info">Jul 11, 2012</div><div class="post-content"></div><a href="/2012/07/11/sql-server-collate/" class="read-more">...more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2012/06/25/vpn-routes-chnroutes/" class="post-title-link">VPN设置路由表,自动区分国内外流量</a></h2><div class="post-info">Jun 25, 2012</div><div class="post-content"></div><a href="/2012/06/25/vpn-routes-chnroutes/" class="read-more">...more</a></article></li></ul></main><footer><div class="paginator"><a href="/page/2/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2018 <a href="http://www.qxyer.com">xingfuqiu</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Hello World!">
+<meta property="og:type" content="website">
+<meta property="og:title" content="邱兴福">
+<meta property="og:url" content="http://www.qxyer.com/index.html">
+<meta property="og:site_name" content="邱兴福">
+<meta property="og:description" content="Hello World!">
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="邱兴福">
+<meta name="twitter:description" content="Hello World!">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>邱兴福</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+    <div class="content index my4">
+        
+          <header id="header">
+  <a href="/">
+  
+    
+      <div id="logo" style="background-image: url(/images/logo.png);"></div>
+    
+  
+    <div id="title">
+      <h1>邱兴福</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#"><i class="fas fa-bars fa-2x"></i></a>
+      </li>
+       
+        <li><a href="/">首页</a></li>
+       
+        <li><a href="/archives/">归档</a></li>
+       
+        <li><a href="https://www.flickr.com/xingfuqiu">相册</a></li>
+       
+        <li><a href="/about/">关于</a></li>
+      
+    </ul>
+  </div>
+</header>
+
+        
+        <section id="about">
+  
+    <p>Hello World!</p>
+
+  
+  
+    <p>
+      Find me on
+      
+      
+      
+        
+          <a class="icon" target="_blank" href="http://github.com/xingfuqiu">
+            <i class="fab fa-github"></i><!--
+      ---></a><!--
+    ---><!--
+    --->, 
+        
+      
+        
+          <a class="icon" target="_blank" href="http://twitter.com/xingfuqiu">
+            <i class="fab fa-twitter"></i><!--
+      ---></a><!--
+    ---><!--
+    ---> and 
+        
+      
+        
+          <a class="icon" target="_blank" href="mailto:xingfuqiu@gmail.com">
+            <i class="fas fa-envelope"></i><!--
+      ---></a><!--
+      ---><!--
+    --->.
+        
+      
+    </p>
+  
+</section>
+
+<section id="writing">
+  <span class="h1"><a href="/archives">文章</a></span>
+  <ul class="post-list">
+    
+      
+    
+    
+      <li class="post-item">
+        
+    <div class="meta">
+        <time datetime="2018-04-26T11:55:13.000Z" itemprop="datePublished">2018-04-26</time>
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2018/04/26/hello-hexo/">hello-hexo</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+        <time datetime="2012-08-14T05:58:00.000Z" itemprop="datePublished">2012-08-14</time>
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2012/08/14/rake-0-dot-9-2-dot-2-vs-0-dot-9-2-error/">rake 0.9.2.2 vs 0.9.2版本不同报错解决</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+        <time datetime="2012-08-14T03:24:00.000Z" itemprop="datePublished">2012-08-14</time>
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2012/08/14/push-source-to-github/">Push源码到Github</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+        <time datetime="2012-08-02T07:12:00.000Z" itemprop="datePublished">2012-08-02</time>
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2012/08/02/delphi-api-globalmemorystatus/">Delphi调用GlobalMemoryStatus获取内存信息</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+        <time datetime="2012-08-02T02:29:00.000Z" itemprop="datePublished">2012-08-02</time>
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2012/08/02/git-order-one-min/">一分钟学会Git</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+        <time datetime="2012-07-31T09:14:00.000Z" itemprop="datePublished">2012-07-31</time>
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2012/07/31/git-order/">Git常用操作命令收集</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+        <time datetime="2012-07-31T07:50:00.000Z" itemprop="datePublished">2012-07-31</time>
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2012/07/31/delphi-thread-waitforsingleobject/">Delphi多线程之WaitForSingleObject</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+        <time datetime="2012-07-20T03:35:00.000Z" itemprop="datePublished">2012-07-20</time>
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2012/07/20/windows7-64bit-octopress/">在64位 Windows 7 中部署中文化的Octopress</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+        <time datetime="2012-07-11T02:18:00.000Z" itemprop="datePublished">2012-07-11</time>
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2012/07/11/sql-server-collate/">SQL Server 2008 中文乱码解决方案</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+        <time datetime="2012-06-25T04:01:00.000Z" itemprop="datePublished">2012-06-25</time>
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2012/06/25/vpn-routes-chnroutes/">VPN设置路由表,自动区分国内外流量</a>
+    
+
+
+</span>
+      </li>
+    
+  </ul>
+  
+</section>
+
+
+
+    </div>
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 XingfuQiu
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://www.flickr.com/xingfuqiu">相册</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+

@@ -1,4 +1,152 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Delphi实现windows系统下设置静音 · 邱兴福</title><meta name="description" content="Delphi实现windows系统下设置静音 - xingfuqiu"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://www.qxyer.com/atom.xml" title="邱兴福"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/xingfuqiu" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Delphi实现windows系统下设置静音</h1><div class="post-info">Jun 1, 2012</div><div class="post-content"><p>这段时间一直在做鼠标录制,系统静音,自动喊话这些东西,这里先把静音的主要代码放上来,一是方便自己以后不用再到处找资料了,二也是方便大家.</p>
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="这段时间一直在做鼠标录制,系统静音,自动喊话这些东西,这里先把静音的主要代码放上来,一是方便自己以后不用再到处找资料了,二也是方便大家. 代码功能: win7下实现本进程静音 XP下实现全局静音  代码主要用到的函数： mixerGetLineInfo mixerGetLineControls mixerSetControlDetails  实现代码引用: MMSystem单元">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Delphi实现windows系统下设置静音">
+<meta property="og:url" content="http://www.qxyer.com/2012/06/01/windows-system-mute/index.html">
+<meta property="og:site_name" content="邱兴福">
+<meta property="og:description" content="这段时间一直在做鼠标录制,系统静音,自动喊话这些东西,这里先把静音的主要代码放上来,一是方便自己以后不用再到处找资料了,二也是方便大家. 代码功能: win7下实现本进程静音 XP下实现全局静音  代码主要用到的函数： mixerGetLineInfo mixerGetLineControls mixerSetControlDetails  实现代码引用: MMSystem单元">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-04-26T10:47:30.772Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Delphi实现windows系统下设置静音">
+<meta name="twitter:description" content="这段时间一直在做鼠标录制,系统静音,自动喊话这些东西,这里先把静音的主要代码放上来,一是方便自己以后不用再到处找资料了,二也是方便大家. 代码功能: win7下实现本进程静音 XP下实现全局静音  代码主要用到的函数： mixerGetLineInfo mixerGetLineControls mixerSetControlDetails  实现代码引用: MMSystem单元">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Delphi实现windows系统下设置静音</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://www.flickr.com/xingfuqiu">相册</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2012/06/25/clipborard-astext/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2012/05/23/delphi-listview-drawitem/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://www.qxyer.com/2012/06/01/windows-system-mute/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://www.qxyer.com/2012/06/01/windows-system-mute/&text=Delphi实现windows系统下设置静音"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://www.qxyer.com/2012/06/01/windows-system-mute/&title=Delphi实现windows系统下设置静音"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://www.qxyer.com/2012/06/01/windows-system-mute/&is_video=false&description=Delphi实现windows系统下设置静音"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Delphi实现windows系统下设置静音&body=Check out this article: http://www.qxyer.com/2012/06/01/windows-system-mute/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://www.qxyer.com/2012/06/01/windows-system-mute/&title=Delphi实现windows系统下设置静音"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://www.qxyer.com/2012/06/01/windows-system-mute/&title=Delphi实现windows系统下设置静音"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://www.qxyer.com/2012/06/01/windows-system-mute/&title=Delphi实现windows系统下设置静音"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://www.qxyer.com/2012/06/01/windows-system-mute/&title=Delphi实现windows系统下设置静音"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://www.qxyer.com/2012/06/01/windows-system-mute/&name=Delphi实现windows系统下设置静音&description=&lt;p&gt;这段时间一直在做鼠标录制,系统静音,自动喊话这些东西,这里先把静音的主要代码放上来,一是方便自己以后不用再到处找资料了,二也是方便大家.&lt;/p&gt;
+&lt;h3 id=&#34;代码功能&#34;&gt;&lt;a href=&#34;#代码功能&#34; class=&#34;headerlink&#34; title=&#34;代码功能:&#34;&gt;&lt;/a&gt;代码功能:&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;win7下实现本进程静音&lt;/li&gt;
+&lt;li&gt;XP下实现全局静音&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;代码主要用到的函数：&#34;&gt;&lt;a href=&#34;#代码主要用到的函数：&#34; class=&#34;headerlink&#34; title=&#34;代码主要用到的函数：&#34;&gt;&lt;/a&gt;代码主要用到的函数：&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://msdn.microsoft.com/en-us/library/aa910259.aspx&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;mixerGetLineInfo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://msdn.microsoft.com/en-us/library/aa909824.aspx&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;mixerGetLineControls&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://msdn.microsoft.com/en-us/library/aa909795.aspx&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;mixerSetControlDetails&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;实现代码&#34;&gt;&lt;a href=&#34;#实现代码&#34; class=&#34;headerlink&#34; title=&#34;实现代码&#34;&gt;&lt;/a&gt;实现代码&lt;/h3&gt;&lt;p&gt;引用: &lt;code&gt;MMSystem&lt;/code&gt;单元&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#代码功能"><span class="toc-number">1.</span> <span class="toc-text">代码功能:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码主要用到的函数："><span class="toc-number">2.</span> <span class="toc-text">代码主要用到的函数：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现代码"><span class="toc-number">3.</span> <span class="toc-text">实现代码</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Delphi实现windows系统下设置静音
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">邱兴福</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2012-06-01T05:23:00.000Z" itemprop="datePublished">2012-06-01</time>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>这段时间一直在做鼠标录制,系统静音,自动喊话这些东西,这里先把静音的主要代码放上来,一是方便自己以后不用再到处找资料了,二也是方便大家.</p>
 <h3 id="代码功能"><a href="#代码功能" class="headerlink" title="代码功能:"></a>代码功能:</h3><ul>
 <li>win7下实现本进程静音</li>
 <li>XP下实现全局静音</li>
@@ -11,4 +159,109 @@
 <h3 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h3><p>引用: <code>MMSystem</code>单元</p>
 <a id="more"></a>
 <figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取信息</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">GetMasterMute</span><span class="params">(<span class="keyword">var</span> Mixer: hMixer; <span class="keyword">var</span> Control: TMixerControl)</span>:</span> MMResult;</span><br><span class="line"><span class="keyword">var</span></span><br><span class="line">  hMix: hmixer;</span><br><span class="line">  Line: TMixerLine;</span><br><span class="line">  Controls: TMixerLineControls;</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">  ZeroMemory(@Line, SizeOf(Line));</span><br><span class="line">  Line.cbStruct := SizeOf(Line);</span><br><span class="line">  Line.dwComponentType := MIXERLINE_COMPONENTTYPE_DST_SPEAKERS;</span><br><span class="line"></span><br><span class="line">  mixerOpen(@hMix, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">  Mixer := hMix;</span><br><span class="line">  Result := mixerGetLineInfo(hMix, @Line, MIXER_GETLINEINFOF_COMPONENTTYPE);</span><br><span class="line">  <span class="keyword">if</span> Result = MMSYSERR_NOERROR <span class="keyword">then</span></span><br><span class="line">  <span class="keyword">begin</span></span><br><span class="line">    ZeroMemory(@Controls, SizeOf(Controls));</span><br><span class="line">    Controls.cbStruct := SizeOf(Controls);</span><br><span class="line">    Controls.dwLineID := Line.dwLineID;</span><br><span class="line">    Controls.cControls := <span class="number">1</span>;</span><br><span class="line">    Controls.dwControlType := MIXERCONTROL_CONTROLTYPE_MUTE;</span><br><span class="line">    Controls.cbmxctrl := SizeOf(Control);</span><br><span class="line">    Controls.pamxctrl := @Control;</span><br><span class="line">    Result := mixerGetLineControls(hMix, @Controls, MIXER_GETLINECONTROLSF_ONEBYTYPE);</span><br><span class="line">  <span class="keyword">end</span>;</span><br><span class="line"><span class="keyword">end</span>;</span><br><span class="line"><span class="comment">//设置</span></span><br><span class="line"><span class="function"><span class="keyword">procedure</span> <span class="title">SetMasterMuteValue</span><span class="params">(Value: Boolean)</span>;</span></span><br><span class="line"><span class="keyword">var</span></span><br><span class="line">  hMix: HMIXER;</span><br><span class="line">  MasterMute: TMixerControl;</span><br><span class="line">  Details: TMixerControlDetails;</span><br><span class="line">  BoolDetails: TMixerControlDetailsBoolean;</span><br><span class="line">  iCode: MMResult;</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">  Code := GetMasterMute(hMix, MasterMute);</span><br><span class="line">  <span class="keyword">if</span> Code = MMSYSERR_NOERROR <span class="keyword">then</span></span><br><span class="line">  <span class="keyword">begin</span></span><br><span class="line">    <span class="keyword">with</span> Details <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">begin</span></span><br><span class="line">      cbStruct := SizeOf(Details);</span><br><span class="line">      dwControlID := MasterMute.dwControlID;</span><br><span class="line">      cChannels := <span class="number">1</span>;</span><br><span class="line">      cMultipleItems := <span class="number">0</span>;</span><br><span class="line">      cbDetails := SizeOf(BoolDetails);</span><br><span class="line">      paDetails := @BoolDetails;</span><br><span class="line">    <span class="keyword">end</span>;</span><br><span class="line">    LongBool(BoolDetails.fValue) := Value;</span><br><span class="line">    Code := mixerSetControlDetails(hMix, @Details, MIXER_SETCONTROLDETAILSF_VALUE);</span><br><span class="line">  <span class="keyword">end</span>;</span><br><span class="line">  mixerClose(hMix);</span><br><span class="line">  <span class="keyword">if</span> iCode &lt;&gt; MMSYSERR_NOERROR <span class="keyword">then</span></span><br><span class="line">    <span class="keyword">raise</span> Exception.CreateFmt(<span class="string">'SetMasterMuteValue failure, '</span>+<span class="string">'multimedia system error #%d'</span>, [iCode]);</span><br><span class="line"><span class="keyword">end</span>;</span><br></pre></td></tr></table></figure>
-</div></article></div></main><footer><div class="paginator"><a href="/2012/06/25/clipborard-astext/" class="prev">PREV</a><a href="/2012/05/23/delphi-listview-drawitem/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2018 <a href="http://www.qxyer.com">xingfuqiu</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://www.flickr.com/xingfuqiu">相册</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#代码功能"><span class="toc-number">1.</span> <span class="toc-text">代码功能:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码主要用到的函数："><span class="toc-number">2.</span> <span class="toc-text">代码主要用到的函数：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现代码"><span class="toc-number">3.</span> <span class="toc-text">实现代码</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://www.qxyer.com/2012/06/01/windows-system-mute/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://www.qxyer.com/2012/06/01/windows-system-mute/&text=Delphi实现windows系统下设置静音"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://www.qxyer.com/2012/06/01/windows-system-mute/&title=Delphi实现windows系统下设置静音"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://www.qxyer.com/2012/06/01/windows-system-mute/&is_video=false&description=Delphi实现windows系统下设置静音"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Delphi实现windows系统下设置静音&body=Check out this article: http://www.qxyer.com/2012/06/01/windows-system-mute/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://www.qxyer.com/2012/06/01/windows-system-mute/&title=Delphi实现windows系统下设置静音"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://www.qxyer.com/2012/06/01/windows-system-mute/&title=Delphi实现windows系统下设置静音"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://www.qxyer.com/2012/06/01/windows-system-mute/&title=Delphi实现windows系统下设置静音"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://www.qxyer.com/2012/06/01/windows-system-mute/&title=Delphi实现windows系统下设置静音"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://www.qxyer.com/2012/06/01/windows-system-mute/&name=Delphi实现windows系统下设置静音&description=&lt;p&gt;这段时间一直在做鼠标录制,系统静音,自动喊话这些东西,这里先把静音的主要代码放上来,一是方便自己以后不用再到处找资料了,二也是方便大家.&lt;/p&gt;
+&lt;h3 id=&#34;代码功能&#34;&gt;&lt;a href=&#34;#代码功能&#34; class=&#34;headerlink&#34; title=&#34;代码功能:&#34;&gt;&lt;/a&gt;代码功能:&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;win7下实现本进程静音&lt;/li&gt;
+&lt;li&gt;XP下实现全局静音&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;代码主要用到的函数：&#34;&gt;&lt;a href=&#34;#代码主要用到的函数：&#34; class=&#34;headerlink&#34; title=&#34;代码主要用到的函数：&#34;&gt;&lt;/a&gt;代码主要用到的函数：&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://msdn.microsoft.com/en-us/library/aa910259.aspx&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;mixerGetLineInfo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://msdn.microsoft.com/en-us/library/aa909824.aspx&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;mixerGetLineControls&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://msdn.microsoft.com/en-us/library/aa909795.aspx&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;mixerSetControlDetails&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;实现代码&#34;&gt;&lt;a href=&#34;#实现代码&#34; class=&#34;headerlink&#34; title=&#34;实现代码&#34;&gt;&lt;/a&gt;实现代码&lt;/h3&gt;&lt;p&gt;引用: &lt;code&gt;MMSystem&lt;/code&gt;单元&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 XingfuQiu
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://www.flickr.com/xingfuqiu">相册</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
